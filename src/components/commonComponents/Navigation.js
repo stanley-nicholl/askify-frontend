@@ -6,7 +6,7 @@ const Navigation = ({ navItem, firstName, queueOrder }) => {
         <nav className="navbar py-2 navigation">
             <a className="navbar-brand " href="#">
                 <img src="styles/images/goose.jpeg" width="40" height="40" className="d-inline-block align-middle" alt="" />
-                 ASKIFY
+                 ASKIFY<small className='powered-by text-white'>powered by galvanize</small>
             </a>
             <div className="right-side d-flex align-items-center">
                 <p className="mr-3 mb-0 text-white" id="greeting">Hello{firstName && `, ${firstName}`}</p>
