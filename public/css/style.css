@@ -1,0 +1,76 @@
+/* main color: #003a4b  (teal/blue)
+use for backgrounds that aren't white
+
+key accent color: #f6872a  (orange)
+use for line breaks, headlines
+
+background grey: #323332
+
+common text color: #a5a8ab  (grey)
+use for majority of text if not using orange
+
+Tertiary color: #fff (white) */
+
+body{
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* NAVIGATION SECTION NAVIGATION SECTION NAVIGATION SECTION */
+
+.navigation{
+    width: 100vw;
+    background-color: #323332 !important;
+    display: flex;
+}
+
+.navbar-brand{
+    color: #f6872a;
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.nav-item{
+    text-decoration: underline;
+}
+
+.spot{
+    height: 2.2rem;
+    width: 2.2rem;
+    border-radius: 1.1rem;
+    background-color: #f6872a;
+}
+
+/* QUEUE PAGE QUEUE PAGE QUEUE PAGE */
+
+.top-section{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    -webkit-box-shadow: 0px 3px 7px 0px rgba(77,72,77,0.65);
+    -moz-box-shadow: 0px 3px 7px 0px rgba(77,72,77,0.65);
+    box-shadow: 0px 3px 7px 0px rgba(77,72,77,0.65);
+}
+
+.jumbotron-fluid{
+    background-color: #003a4b;
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+}
+
+.question{
+    font-size: 1.3rem !important;
+}
+
+.question-btn{
+    font-size: 1.3rem;
+}
+
+.list-head{
+    background-color: #f6872a;
+    color: #fff;
+}
+
+
