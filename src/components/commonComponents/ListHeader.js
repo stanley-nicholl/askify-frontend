@@ -2,7 +2,7 @@ import React from 'react'
 
 const ListHeader = () => {
     return (
-        <div className="list-head">
+        <div className="list-head stick-top">
             <div className="container">
                 <div className="header row mt-0 py-3">
                     <div className="col-1 d-flex justify-content-center">

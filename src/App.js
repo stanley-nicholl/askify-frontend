@@ -13,15 +13,13 @@ class App extends Component {
     super(props)
     this.state = {
       userToken : localStorage.getItem('askifyUserToken'),
-      userId : null,
-      userInQueue: false,
-      firstName : null,
-      lastName : null,
+      userId : 2,
+      firstName : 'Kat',
       queueOrder : 0,
       programType : null,
       cohort : null,
       currentQuestion : null,
-      inQueue : false,
+      inQueue : true,
       queue : []
     }
   }
@@ -30,7 +28,6 @@ class App extends Component {
     // this.fetchUserData(token)
     console.log(token);
     this.fetchQueueData(token)
-
   }
 
   // fetchUserData = async (token) => {
@@ -53,6 +50,29 @@ class App extends Component {
     console.log(queueDataJSON);
   }
 
+  addToQueue = async (userId, question) => {
+
+    // do we need to attach userId somewhere to know who to attach it to?
+    const newQuestion = await fetch(`https://askify-api.herokuapp.com/api/questions/`, {
+      method: 'POST',
+      body: JSON.stringify(question),
+      headers: {
+        'authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+    this.fetchQueueData()
+  }
+
+  updateQueueStatus = (status) => {
+    this.setState({ inQueue: status })
+  }
+
+  updateQueueOrder = (order) => {
+    this.setState({ queueOrder: order})
+  }
+
 
   render() {
     return (
@@ -69,12 +89,17 @@ class App extends Component {
             inQueue: this.state.inQueue,
             queueOrder: this.state.queueOrder,
             cohort: this.state.cohort
-            }} queue={this.state.queue}/> } />
+            }}
+            addToQueue={this.addToQueue}
+            queue={this.state.queue}
+            updateQueueOrder={this.updateQueueOrder}
+            updateQueueStatus={this.updateQueueStatus}
+            /> } />
 
           <Route path='/archive' component={ QuestionArchive } />
 
         </div>
-      </ Router>
+      </Router>
     );
   }
 }
