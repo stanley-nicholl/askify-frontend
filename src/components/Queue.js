@@ -16,10 +16,20 @@ class Queue extends Component{
                     firstName={this.props.user.firstName}
                     queueOrder={this.props.user.queueOrder}
                 />
-                <Hero />
+                <Hero
+                  userId={this.props.user.userId}
+                  inQueue={this.props.user.inQueue}
+                  addToQueue={this.props.addToQueue}
+                  updateQueueStatus={this.props.updateQueueStatus}
+                />
                 <ListHeader />
               </div>
-              <QuestionList queue={this.props.queue} />
+              <QuestionList
+                queue={this.props.queue}
+                updateQueueOrder={this.props.updateQueueOrder}
+                currentUserId={this.props.user.userId}
+                currentQueueOrder={this.props.user.queueOrder}
+              />
               <Footer />
             </div>
         )
