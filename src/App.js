@@ -44,7 +44,7 @@ class App extends Component {
   fetchQueueData = async (token) => {
     const queueDataResponse = await fetch(`https://askify-api.herokuapp.com/api/questions/queue`, {
       headers: {
-        'authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${token}`
       }
     })
 
@@ -74,7 +74,7 @@ class App extends Component {
           <Route path='/archive' component={ QuestionArchive } />
 
         </div>
-      </ Router>
+      </Router>
     );
   }
 }
@@ -82,4 +82,3 @@ class App extends Component {
 export default App;
 
 
-/**/
