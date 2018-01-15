@@ -48,7 +48,7 @@ const QuestionList = ({ queue, updateQueueOrder, currentUserId, currentQueueOrde
   ]
     return (
       <div className='question-list container'>
-        {queuex.map((item, index)=>{
+        {queue.map((item, index)=>{
               return <QuestionItem key={index+1} id={item.id} count={index+1} currentUserId={currentUserId} questionUserId={item.userid} name={item.firstName} question={item.question} updateQueueOrder={updateQueueOrder} currentQueueOrder={currentQueueOrder}  />
           })}
       </div>

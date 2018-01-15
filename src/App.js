@@ -5,7 +5,7 @@ import SignIn from './components/SignIn'
 import Queue from './components/Queue'
 import QuestionArchive from './components/QuestionArchive'
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MTU5NjAzOTksImp0aSI6Ilx1MDAwMCJ9.52Rr5kGCXvwlBmB6FOVNUYqImJs6B12wUuUNaXEzuLg'
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjgsInJvbCI6ZmFsc2UsImV4cCI6MTUxNjA2ODUwNX0.IXkI1VjbnQfThtXkm7mHHdkvtEndTETAaDDYzH727KQ'
 
 
 class App extends Component {
@@ -13,20 +13,20 @@ class App extends Component {
     super(props)
     this.state = {
       userToken : localStorage.getItem('askifyUserToken'),
-      userId : 2,
-      firstName : 'Kat',
+      userId : 3,
+      fname : 'Kat',
       queueOrder : 0,
       programType : null,
       cohort : null,
       currentQuestion : null,
       inQueue : true,
-      queue : []
+      queue : [],
+      archive : []
     }
   }
 
   componentWillMount = async () => {
     // this.fetchUserData(token)
-    console.log(token);
     this.fetchQueueData(token)
   }
 
@@ -39,7 +39,7 @@ class App extends Component {
   // }
 
   fetchQueueData = async (token) => {
-    const queueDataResponse = await fetch(`https://askify-api.herokuapp.com/api/questions/queue`, {
+    const queueDataResponse = await fetch(`https://askify-api.herokuapp.com/api/queue`, {
       headers: {
         'authorization': `Bearer ${token}`
       }
@@ -47,7 +47,31 @@ class App extends Component {
 
     const queueDataJSON = await queueDataResponse.json()
 
-    console.log(queueDataJSON);
+    const archiveDataResponse = await fetch(`https://askify-api.herokuapp.com/api/archive`, {
+      headers: {
+        'authorization': `Bearer ${token}`
+      }
+    })
+
+    const archiveDataJSON = await archiveDataResponse.json()
+
+    this.setState({ queue: queueDataJSON, archive: archiveDataJSON})
+  }
+
+  signUpUser = async (payload) => {
+    const newUser = await fetch(`https://askify-api.herokuapp.com/auth/register`, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    })
+    // this.fetchUserData()
+  }
+
+  signInUser = async (payload) => {
+    const loggedInUser = await fetch(`https://askify-api.herokuapp.com/auth/login`, {
+      method: 'GET',
+      body: JSON.stringify(payload)
+    })
+    // this.fetchUserData()
   }
 
   addToQueue = async (userId, question) => {
@@ -79,16 +103,15 @@ class App extends Component {
       <Router>
         <div className="App">
 
-          <Route path='/signin' component={ SignIn } />
+          <Route path='/signin' component={ (props) => <SignIn {...props} signInUser={this.signInUser} /> } />
 
-          <Route path='/signup' component={ SignUp } />
+          <Route path='/signup' component={ (props) => <SignUp {...props} signUpUser={this.signUpUser} /> } />
 
-          <Route path='/' component={ (props) => <Queue {...props} user={{
+          <Route exact path='/askify' component={ (props) => <Queue {...props} user={{
             userId: this.state.userId,
-            firstName: this.state.firstName,
+            fname: this.state.fname,
             inQueue: this.state.inQueue,
             queueOrder: this.state.queueOrder,
-            cohort: this.state.cohort
             }}
             addToQueue={this.addToQueue}
             queue={this.state.queue}
@@ -96,7 +119,14 @@ class App extends Component {
             updateQueueStatus={this.updateQueueStatus}
             /> } />
 
-          <Route path='/archive' component={ QuestionArchive } />
+          <Route exact path='/' component={ (props) => <QuestionArchive {...props} user={{
+            userId: this.state.userId,
+            fname: this.state.fname,
+            inQueue: this.state.inQueue,
+            queueOrder: this.state.queueOrder,
+            }}
+            questionArchive={this.state.archive}
+            /> } />
 
         </div>
       </Router>

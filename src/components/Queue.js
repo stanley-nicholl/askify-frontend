@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Hero, Footer, Navigation, QueueItem, ListHeader, QuestionList } from './commonComponents'
+import { Hero, Footer, Navigation, QueueItem, QueueListHeader, QuestionList } from './commonComponents'
 
 class Queue extends Component{
     constructor(props){
@@ -13,7 +13,7 @@ class Queue extends Component{
               <div className='top-section'>
                 <Navigation
                     navItem={'Archived Questions'}
-                    firstName={this.props.user.firstName}
+                    fname={this.props.user.fname}
                     queueOrder={this.props.user.queueOrder}
                 />
                 <Hero
@@ -22,7 +22,7 @@ class Queue extends Component{
                   addToQueue={this.props.addToQueue}
                   updateQueueStatus={this.props.updateQueueStatus}
                 />
-                <ListHeader />
+                <QueueListHeader />
               </div>
               <QuestionList
                 queue={this.props.queue}

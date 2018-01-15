@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ListHeader = () => {
+const QueueListHeader = () => {
     return (
         <div className="list-head stick-top">
             <div className="container">
@@ -12,7 +12,7 @@ const ListHeader = () => {
                         <h3>Name</h3>
                     </div>
                     <div className="col-6">
-                        <h3>Topic</h3>
+                        <h3>Question</h3>
                     </div>
                     <div className="col-2 d-flex justify-content-center">
                         <h3>Actions</h3>
@@ -23,4 +23,4 @@ const ListHeader = () => {
     )
 }
 
-export { ListHeader }
+export { QueueListHeader }
