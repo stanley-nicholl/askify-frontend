@@ -5,6 +5,7 @@ import SignIn from './components/SignIn'
 import Queue from './components/Queue'
 import QuestionArchive from './components/QuestionArchive'
 
+import { signIn, signUp } from './actions'
 
 class Askify extends Component {
   constructor(props){
@@ -15,9 +16,8 @@ class Askify extends Component {
       userId : null,
       fname : null,
       email: null,
-      queueOrder : 0,
-      programType : null,
       cohort : null,
+      queueOrder : 0,
       currentQuestion : null,
       inQueue : false,
       queue : [],
@@ -29,7 +29,7 @@ class Askify extends Component {
 
   componentDidMount = () => {
     const token = localStorage.getItem('askifyToken')
-    if(!token) {
+    if(token == "undefined") {
       this.setState({...this.state, loggedIn: false })
       console.log("No token found, you are not logged in")
       return
@@ -106,7 +106,7 @@ class Askify extends Component {
     localStorage.setItem('askifyToken', userToken)
 
     // this.setState({ userToken: userToken, userId: userId })
-    await this.setState({ userToken, userId, fname, email, cohort })
+    await this.setState({ ...this.state, userToken, userId, fname, email, cohort })
   }
 
   //ADDS A Q TO THE EXISTING QUEUE AND RERENDERS

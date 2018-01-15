@@ -1,36 +1,21 @@
 import React, { Component } from 'react'
 import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-const SignIn = ({ setUserDataToState, userIsLoggedIn, history }) => {
+import { signIn } from '../actions/user.actions'
+
+const SignIn = ({ setUserDataToState, userIsLoggedIn, history, ...props }) => {
 
   const signInPrep = (e) => {
+    console.log('clicked button')
     e.preventDefault()
     const payload={
       email: e.target.email.value,
       password: e.target.password.value,
     }
-    signInUser(payload)
-  }
 
-
-  //AUTHENTICATES EXISTING USER AND RETURNS THAT USER'S INFORMATION
-
-  const signInUser = async (payload) => {
-    const loggedInUser = await fetch(`https://askify-api.herokuapp.com/auth/login`, {
-      method: 'POST',
-      body: JSON.stringify(payload)
-    })
-
-    const user = await loggedInUser.json()
-
-    if (loggedInUser.status !== 200) {
-      document.getElementById('signinError').textContent = `Incorrect email and password combo`
-      return null
-    }else{
-      console.log(user);
-      setUserDataToState(user)
-      setTimeout(() => history.push('/queue'), 1000)
-    }
+    props.signIn(payload)
   }
 
   if(userIsLoggedIn) {
@@ -121,4 +106,8 @@ const SignIn = ({ setUserDataToState, userIsLoggedIn, history }) => {
   )
 }
 
-export default SignIn
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({signIn}, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(SignIn)
