@@ -24,16 +24,14 @@ export function fetchUser(token) {
 }
 
 export function signIn(payload) {
-  console.log('sign in function')
   return async (dispatch) => {
-    console.log('dispatch function sign in')
     const res = await fetch(`https://askify-api.herokuapp.com/auth/login`, {
       method: 'POST',
       body: JSON.stringify(payload)
     })
 
     const user = await res.json()
-
+    
     dispatch({
       type: LOGGED_IN_SUCCESS,
       payload: user

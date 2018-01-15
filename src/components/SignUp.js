@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-const SignUp = ({ setUserDataToState, userIsLoggedIn, history }) => {
+import { signUp } from '../actions/user.actions'
+
+const SignUp = ({ setUserDataToState, userIsLoggedIn, history, ...props }) => {
 
   const signUpPrep = (e) => {
     e.preventDefault()
@@ -11,27 +15,12 @@ const SignUp = ({ setUserDataToState, userIsLoggedIn, history }) => {
       password: e.target.password.value,
       cohort: e.target.cohort.value
     }
-    signUpUser(payload)
+    props.signUp(payload)
   }
 
   //POSTS A NEW USER TO THE DATABASE AND RETURNS THAT USER'S INFORMATION
 
-  const signUpUser = async (payload) => {
-    const newUser = await fetch(`https://askify-api.herokuapp.com/auth/register`, {
-      method: 'POST',
-      body: JSON.stringify(payload)
-    })
-
-    const user = await newUser.json()
-    if (newUser.status !== 200) {
-      document.getElementById('signupError').textContent = `Improperly formated email or password, please try again`
-      return null
-    }else{
-      // console.log(user);
-      setUserDataToState(user)
-      setTimeout(() => history.push('/queue'), 1000)
-    }
-  }
+  
 
   return (
       <div>
@@ -129,4 +118,9 @@ const SignUp = ({ setUserDataToState, userIsLoggedIn, history }) => {
   )
 }
 
-export default SignUp
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({signUp}, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(SignUp)
+
