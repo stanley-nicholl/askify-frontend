@@ -4,7 +4,8 @@ import {
   FETCH_ARCHIVE_SUCCESS,
   SIGN_UP_SUCCESS,
   LOGGED_IN_SUCCESS,
-  LOGGED_OUT_SUCCESS
+  LOGGED_OUT_SUCCESS,
+  FETCH_USER_SUCCESS
 } from '../actions'
 
 const INITIAL_STATE = []
@@ -19,8 +20,7 @@ const INITIAL_USER_STATE = {
 function queue(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_QUEUE_SUCCESS: 
-      return action.payload
-
+      return [...action.payload]
     default: 
       return state
   }
@@ -29,7 +29,7 @@ function queue(state = INITIAL_STATE, action) {
 function archive(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_ARCHIVE_SUCCESS: 
-      return action.payload
+    return [...action.payload]
     default: 
       return state
   }
@@ -37,6 +37,7 @@ function archive(state = INITIAL_STATE, action) {
 
 function user(state = INITIAL_USER_STATE, action) {
   switch (action.type) {
+    case FETCH_USER_SUCCESS:
     case LOGGED_IN_SUCCESS: 
     case SIGN_UP_SUCCESS:
       return action.payload

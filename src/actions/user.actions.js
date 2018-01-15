@@ -9,12 +9,14 @@ export function fetchUser(token) {
   return async (dispatch) => {
 
     const header = {
-      'Authorization': `Bearer ${token}`
+      'Authorization': `Bearer ${token}`,
+
     }
     const res = await fetch(`https://askify-api.herokuapp.com/api/user`, {
       headers: header
     })
     const json = await res.json()
+    console.log("results of fetch user", json)
 
     dispatch({
       type: FETCH_USER_SUCCESS,
@@ -31,6 +33,7 @@ export function signIn(payload) {
     })
 
     const user = await res.json()
+    console.log("results of sign in", user)
 
     window.localStorage.setItem('askifyToken', user.token)
     
@@ -49,6 +52,7 @@ export function signUp(payload) {
     })  
 
     const user = await newUser.json()
+    console.log("results of sign up", user)
 
     dispatch({
       type: SIGN_UP_SUCCESS,
