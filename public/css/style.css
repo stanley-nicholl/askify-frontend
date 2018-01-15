@@ -11,35 +11,129 @@ use for majority of text if not using orange
 
 Tertiary color: #fff (white) */
 
-body{
+body {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   box-sizing: border-box;
 }
 
+/* SIGNIN PAGE SIGNIN PAGE SIGNIN PAGE */
+
+.signin-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 59, 76, .6);
+}
+
+.signin-homepage-video-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  z-index: -1;
+}
+
+video {
+  width: 100vw;
+}
+
+.video-background {
+  top: 0;
+  left: 0;
+  background-color: #000;
+  position: fixed;
+  min-height: 100%;
+  min-width: 100%;
+  -webkit-perspective: 1000;
+  /* perspective: 1000; */
+  overflow: hidden;
+}
+
+.signin-container {
+  height: 100vh;
+  color: #f6872a;
+  width: 84%;
+  margin: auto;
+  display: flex;
+}
+
+.title {
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+.headline {
+  color: #fff;
+}
+
+.signin.form-elegant {
+  width: 38%;
+  margin-right: 8rem;
+  opacity: .9;
+}
+
+.form-title {
+  color: #003a4b !important;
+}
+
+.custom-signup-input {
+  width: 48%;
+}
+
+.signin-btn {
+  background-color: #f6872a;
+}
+
+.fa {
+  color: #003a4b;
+}
+
+.link {
+  color: #003a4b;
+}
+
+.form-elegant .font-small {
+  font-size: 0.8rem;
+}
+
+.form-elegant .z-depth-1a {
+  -webkit-box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+  box-shadow: 0 2px 5px 0 rgba(55, 161, 255, 0.26), 0 4px 12px 0 rgba(121, 155, 254, 0.25);
+}
+
+.form-elegant .z-depth-1-half, .form-elegant .btn:hover {
+  -webkit-box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+  box-shadow: 0 5px 11px 0 rgba(85, 182, 255, 0.28), 0 4px 15px 0 rgba(36, 133, 255, 0.15);
+}
+
 /* NAVIGATION SECTION NAVIGATION SECTION NAVIGATION SECTION */
 
-.navigation{
+.navigation {
   width: 100vw;
   background-color: #323332 !important;
   display: flex;
 }
 
-.navbar-brand{
+.navbar-brand {
   color: #f6872a;
   font-weight: bold;
   font-size: 3rem;
 }
 
-.powered-by{
+.powered-by {
   font-size: .8rem;
 }
 
-.nav-item{
+.nav-item {
   text-decoration: underline;
 }
 
-.spot{
+.spot {
   height: 2.2rem;
   width: 2.2rem;
   border-radius: 1.1rem;
@@ -48,48 +142,71 @@ body{
 
 /* QUEUE PAGE QUEUE PAGE QUEUE PAGE */
 
-.top-section{
+.top-section {
   z-index: 10;
   position: fixed;
   top: 0;
   left: 0;
-  -webkit-box-shadow: 0px 3px 7px 0px rgba(77,72,77,0.65);
-  -moz-box-shadow: 0px 3px 7px 0px rgba(77,72,77,0.65);
-  box-shadow: 0px 3px 7px 0px rgba(77,72,77,0.65);
 }
 
-.jumbotron-fluid{
+.jumbotron-fluid {
   background-color: #003a4b;
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
 
-.question{
+.question {
   font-size: 1.3rem !important;
 }
 
-.question-btn{
+.question-btn {
   font-size: 1.3rem;
   z-index: 0;
 }
 
-.list-head{
-  background-color: #f6872a;
-  color: #fff;
+.gschool-img {
+  height: 1rem;
+  width: auto;
 }
 
-.question-list{
+.list-head {
+  background-color: #f6872a;
+  color: #fff;
+  -webkit-box-shadow: 0px 3px 7px 0px rgba(77, 72, 77, 0.65);
+  -moz-box-shadow: 0px 3px 7px 0px rgba(77, 72, 77, 0.65);
+  box-shadow: 0px 3px 7px 0px rgba(77, 72, 77, 0.65);
+}
+
+.question-list {
   margin-top: 444px;
 }
 
-.question-item{
+.question-item {
   border-bottom: solid 1px #a5a8ab;
 }
 
-.active-item{
+.active-item {
   background-color: #d7d8d7;
 }
 
-.item-button{
+.item-button {
   width: 100%;
+}
+
+.answered-btn {
+  background-color: #003a4b;
+  color: #fff;
+}
+
+@media screen and (max-width: 1200px) {
+  .signin-container {
+    margin-top: 4rem;
+    flex-direction: column;
+    margin-right: 0;
+    width: 100%;
+  }
+  .signin.form-elegant {
+    margin-right: 0;
+    width: 60%;
+  }
 }

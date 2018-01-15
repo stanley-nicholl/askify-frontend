@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Navigation = ({ navItem, firstName, queueOrder }) => {
+const Navigation = ({ navItem, fname, queueOrder }) => {
 
     return (
         <nav className="navbar py-2 navigation">
@@ -9,7 +9,7 @@ const Navigation = ({ navItem, firstName, queueOrder }) => {
                  ASKIFY<small className='powered-by text-white'>powered by galvanize</small>
             </a>
             <div className="right-side d-flex align-items-center">
-                <p className="mr-3 mb-0 text-white" id="greeting">Hello{firstName && `, ${firstName}`}</p>
+                <p className="mr-3 mb-0 text-white" id="greeting">Hello{fname && `, ${fname}`}</p>
                 <div id="queueSpot" className="spot text-center mr-3 d-flex align-items-center justify-content-center">
                     <p className=' text-white font-weight-bold my-0'>{queueOrder}</p>
                 </div>
