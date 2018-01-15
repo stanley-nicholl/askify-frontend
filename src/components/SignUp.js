@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-const SignUp = ({ signUpUser }) => {
+const SignUp = ({ setUserDataToState, history }) => {
 
   const signUpPrep = (e) => {
     e.preventDefault()
@@ -14,6 +14,24 @@ const SignUp = ({ signUpUser }) => {
     signUpUser(payload)
   }
 
+  //POSTS A NEW USER TO THE DATABASE AND RETURNS THAT USER'S INFORMATION
+
+  const signUpUser = async (payload) => {
+    const newUser = await fetch(`https://askify-api.herokuapp.com/auth/register`, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    })
+
+    const user = await newUser.json()
+    if (newUser.status !== 200) {
+      document.getElementById('signupError').textContent = `Improperly formated email or password, please try again`
+      return null
+    }else{
+      // console.log(user);
+      setUserDataToState(user)
+      setTimeout(() => history.push('/queue'), 1000)
+    }
+  }
 
   return (
       <div>
@@ -71,9 +89,14 @@ const SignUp = ({ signUpUser }) => {
                       </div>
                     </div>
 
-                    <div className="text-center mb-3">
+                    <div className="text-center mb-1">
                         <button type="submit" className="btn btn-block btn-rounded z-depth-1a signin-btn">Sign in</button>
                     </div>
+
+                    <div className='d-flex justify-content-center mt-0 mb-4'>
+                      <small id='signupError'></small>
+                    </div>
+
                     <p className="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> (coming soon) or Sign in with:</p>
 
                         <div className="row my-3 d-flex justify-content-center">
