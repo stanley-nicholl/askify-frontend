@@ -2,6 +2,32 @@ import React from 'react'
 
 const Hero = ({ addToQueue, userId, inQueue, updateQueueStatus}) => {
     let error
+
+    const canSubmit = () => {
+      if(!inQueue) {
+        return (
+          <button
+            type="submit"
+            className="btn btn-warning px-5 py-4 mb-0 question-btn"
+            id="add-request"
+          >
+              ASKIFY!
+          </button>
+        )
+      }else{
+        return (
+          <button
+            type="submit"
+            className="btn btn-warning px-5 py-4 mb-0 question-btn"
+            id="add-request"
+            disabled
+          >
+              ASKIFY!
+          </button>
+        )
+      }
+    }
+
     const prepareQuestion = (e) => {
       e.preventDefault()
         if(inQueue === true) {
@@ -24,12 +50,7 @@ const Hero = ({ addToQueue, userId, inQueue, updateQueueStatus}) => {
                     name="questionText"
                     required
                 />
-                <button type="submit"
-                    className="btn btn-warning px-5 py-4 mb-0 question-btn"
-                    id="add-request"
-                >
-                    ASKIFY!
-                </button>
+            {canSubmit()}
             </form>
             <div className='d-flex justify-content-center'>
               <small id='error' className='error text-white mr-5'></small>

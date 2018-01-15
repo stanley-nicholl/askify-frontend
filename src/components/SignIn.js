@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-const SignIn = ({ signInUser }) => {
+const SignIn = ({ setUserDataToState, history }) => {
 
   const signInPrep = (e) => {
     e.preventDefault()
@@ -12,12 +12,33 @@ const SignIn = ({ signInUser }) => {
     signInUser(payload)
   }
 
+
+  //AUTHENTICATES EXISTING USER AND RETURNS THAT USER'S INFORMATION
+
+  const signInUser = async (payload) => {
+    const loggedInUser = await fetch(`https://askify-api.herokuapp.com/auth/login`, {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    })
+
+    const user = await loggedInUser.json()
+
+    if (loggedInUser.status !== 200) {
+      document.getElementById('signinError').textContent = `Incorrect email and password combo`
+      return null
+    }else{
+      // console.log(user);
+      setUserDataToState(user)
+      setTimeout(() => history.push('/queue'), 1000)
+    }
+  }
+
   return (
       <div>
 
         <div className="signin-homepage-video-section">
           <div className="video-background hidden-sm hidden-xs">
-            <video preload="true" autoplay="true" loop="true" className="video" poster="https://s3-us-west-2.amazonaws.com/dotcom-files/video_hero_bg_poster.png">
+            <video preload="true" autoPlay="true" loop="true" className="video" poster="https://s3-us-west-2.amazonaws.com/dotcom-files/video_hero_bg_poster.png">
               <source src="https://s3-us-west-2.amazonaws.com/dotcom-files/hero_video.mp4" type="video/mp4" />
             </video>
             <div className="signin-overlay"></div>
@@ -52,9 +73,13 @@ const SignIn = ({ signInUser }) => {
                         <label htmlFor="Form-email1">Your email</label>
                     </div>
 
-                    <div className="md-form pb-3">
+                    <div className="md-form pb-1">
                         <input type="password" id="Form-pass1" name='password' className="form-control" required/>
                         <label htmlFor="Form-pass1">Your password</label>
+                    </div>
+
+                    <div className='d-flex justify-content-center mt-0 mb-4'>
+                      <small id='signinError'></small>
                     </div>
 
                     <div className="text-center mb-3">

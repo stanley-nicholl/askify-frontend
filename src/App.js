@@ -1,47 +1,62 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Redirect, withRouter } from 'react-router-dom'
 import SignUp from './components/SignUp'
 import SignIn from './components/SignIn'
 import Queue from './components/Queue'
 import QuestionArchive from './components/QuestionArchive'
-
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjgsInJvbCI6ZmFsc2UsImV4cCI6MTUxNjA2ODUwNX0.IXkI1VjbnQfThtXkm7mHHdkvtEndTETAaDDYzH727KQ'
 
 
 class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      userToken : localStorage.getItem('askifyUserToken'),
-      userId : 3,
-      fname : 'Kat',
+      userToken : localStorage.getItem('askifyToken'),
+      userId : null,
+      fname : null,
+      email: null,
       queueOrder : 0,
       programType : null,
       cohort : null,
       currentQuestion : null,
-      inQueue : true,
+      inQueue : false,
       queue : [],
       archive : []
     }
   }
 
-  componentWillMount = async () => {
-    // this.fetchUserData(token)
-    this.fetchQueueData(token)
+  //WARNING WARNING WARNING - REMEMBER TO CHANGE TOKEN TO GRAB LOCAL STORAGE
+
+  componentDidMount = async () => {
+    const token = localStorage.getItem('askifyToken')
+    // if(!token) {
+    //   // this.history.push('/')
+    //   return null
+    // }
+    console.log(token);
+    await this.fetchQueueData(token)
+    await this.fetchUserData(token)
   }
 
-  // fetchUserData = async (token) => {
-  //   const userDataResponse = await fetch(`${xxx}/users`, {
-  //     headers: {
-  //       'authorization': `Bearer ${token}`
-  //     }
-  //   })
-  // }
+  //RETRIEVES USER INFORMATION IN THE EVENT THEIR TOKEN IS STILL VALID AND DID NOT 'ENTER' THE SITE THROUGH SIGNIN/SIGNUP PAGES
 
-  fetchQueueData = async (token) => {
+  fetchUserData = async (userToken) => {
+    const userDataResponse = await fetch(`https://askify-api.herokuapp.com/api/user`, {
+      headers: {
+        'authorization': `Bearer ${userToken}`
+      }
+    })
+
+    const user = await userDataResponse.json()
+    if(!user) return null
+    await this.setUserDataToState(user)
+  }
+
+  //GRABS EXISTING QUESTIONS IN QUEUE AND ARCHIVE
+
+  fetchQueueData = async (userToken) => {
     const queueDataResponse = await fetch(`https://askify-api.herokuapp.com/api/queue`, {
       headers: {
-        'Authorization': `Bearer ${token}`
+        'authorization': `Bearer ${userToken}`
       }
     })
 
@@ -49,30 +64,29 @@ class App extends Component {
 
     const archiveDataResponse = await fetch(`https://askify-api.herokuapp.com/api/archive`, {
       headers: {
-        'authorization': `Bearer ${token}`
+        'authorization': `Bearer ${userToken}`
       }
     })
 
     const archiveDataJSON = await archiveDataResponse.json()
-
-    this.setState({ queue: queueDataJSON, archive: archiveDataJSON})
+    if(!archiveDataJSON || !queueDataJSON) return null
+    await this.setState({ queue: queueDataJSON, archive: archiveDataJSON})
   }
 
-  signUpUser = async (payload) => {
-    const newUser = await fetch(`https://askify-api.herokuapp.com/auth/register`, {
-      method: 'POST',
-      body: JSON.stringify(payload)
-    })
-    // this.fetchUserData()
+  //SETS USER DATA TO LOCAL STATE FOR SIGNIN, SIGNUP, AND RETURNING USER WITH TOKEN
+
+  setUserDataToState = async (user) => {
+    const { fname, email, cohort } = user
+    const userToken = user.token
+    const userId = user.id
+
+    // localStorage.setItem('askifyToken', userToken)
+
+    // this.setState({ userToken: userToken, userId: userId })
+    await this.setState({ userToken, userId, fname, email, cohort })
   }
 
-  signInUser = async (payload) => {
-    const loggedInUser = await fetch(`https://askify-api.herokuapp.com/auth/login`, {
-      method: 'GET',
-      body: JSON.stringify(payload)
-    })
-    // this.fetchUserData()
-  }
+  //ADDS A Q TO THE EXISTING QUEUE AND RERENDERS
 
   addToQueue = async (userId, question) => {
 
@@ -81,17 +95,21 @@ class App extends Component {
       method: 'POST',
       body: JSON.stringify(question),
       headers: {
-        'authorization': `Bearer ${token}`,
+        'authorization': `Bearer ${this.userToken}`,
         'Content-Type': 'application/json',
         'Accept': 'application/json'
       }
     })
-    this.fetchQueueData()
+    await this.fetchQueueData()
   }
+
+  //UPDATES USER'S QUEUE STATUS AS THEY CANNOT SUBMIT MULTIPLE QUESTIONS INTO THE QUEUE AT ONCE
 
   updateQueueStatus = (status) => {
     this.setState({ inQueue: status })
   }
+
+  //UPDATES USERS'S QUEUE ORDER SHOWING WHERE THEY ARE 'IN LINE'
 
   updateQueueOrder = (order) => {
     this.setState({ queueOrder: order})
@@ -103,11 +121,11 @@ class App extends Component {
       <Router>
         <div className="App">
 
-          <Route path='/signin' component={ (props) => <SignIn {...props} signInUser={this.signInUser} /> } />
+          <Route exact path='/' component={ (props) => <SignIn {...props} setUserDataToState={this.setUserDataToState} /> } />
 
-          <Route path='/signup' component={ (props) => <SignUp {...props} signUpUser={this.signUpUser} /> } />
+          <Route exact path='/signup' component={ (props) => <SignUp {...props} setUserDataToState={this.setUserDataToState} /> } />
 
-          <Route exact path='/askify' component={ (props) => <Queue {...props} user={{
+          <Route exact path='/queue' component={ (props) => <Queue {...props} user={{
             userId: this.state.userId,
             fname: this.state.fname,
             inQueue: this.state.inQueue,
@@ -119,7 +137,7 @@ class App extends Component {
             updateQueueStatus={this.updateQueueStatus}
             /> } />
 
-          <Route exact path='/' component={ (props) => <QuestionArchive {...props} user={{
+          <Route exact path='/archive' component={ (props) => <QuestionArchive {...props} user={{
             userId: this.state.userId,
             fname: this.state.fname,
             inQueue: this.state.inQueue,

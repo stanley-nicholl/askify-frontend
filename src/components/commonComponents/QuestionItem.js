@@ -2,13 +2,12 @@ import React from 'react'
 
 const QuestionItem = ({ id, count, name, question, updateQueueOrder, currentUserId, questionUserId, currentQueueOrder }) => {
     let styling = 'd-flex row question-item py-3'
-    // let buttonEditStyling = 'btn btn-outline-warning waves-effect btn-sm item-button mt-2'
-    // let buttonAnsweredStyling = 'btn btn-outline-info waves-effect btn-sm item-button mt-2'
+    let disabled = 'false'
 
     if(currentUserId === questionUserId) {
       styling = 'd-flex row question-item py-3 active-item'
-    //   buttonEditStyling = 'btn btn-warning waves-effect btn-sm item-button mt-2'
-    //   buttonAnsweredStyling = 'btn waves-effect btn-sm item-button mt-2 answered-btn'
+    }else{
+      disabled = 'true'
     }
 
     if(count !== currentQueueOrder && currentUserId === questionUserId){
@@ -17,7 +16,7 @@ const QuestionItem = ({ id, count, name, question, updateQueueOrder, currentUser
 
     const editQuestion = (e) => {
       e.preventDefault()
-      
+
     }
 
 
@@ -33,8 +32,8 @@ const QuestionItem = ({ id, count, name, question, updateQueueOrder, currentUser
           <p className="element topic" id="${id}-question">{question}</p>
         </div>
         <div className="col-2 d-flex flex-column align-items-center justify-content-center">
-          <button type="button" id="${id}-edit" className='btn btn-warning waves-effect btn-sm item-button mt-2' onClick={e => editQuestion()}>Edit</button>
-          <button type="button" id="${id}-answered" className='btn waves-effect btn-sm item-button mt-2 answered-btn'>Answered</button>
+          <button type="button" id="${id}-edit" className='btn btn-warning waves-effect btn-sm item-button mt-2' disabled={disabled} onClick={e => editQuestion()}>Edit</button>
+          <button type="button" id="${id}-answered" className='btn waves-effect btn-sm item-button mt-2 answered-btn' disabled={disabled}>Answered</button>
         </div>
       </div>
     )
