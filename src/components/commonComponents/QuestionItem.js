@@ -1,4 +1,4 @@
-// import React from 'react'
+import React from 'react'
 
 const QuestionItem = ({ id, count, name, question, updateQueueOrder, currentUserId, questionUserId, currentQueueOrder }) => {
     let styling = 'd-flex row question-item py-3'
