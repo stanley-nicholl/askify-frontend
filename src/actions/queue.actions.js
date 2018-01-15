@@ -1,16 +1,15 @@
 
 import { FETCH_QUEUE_SUCCESS } from '../actions'
 
-export function fetchQueue() {
+export function fetchQueue(token) {
   return async (dispatch) => {
     const res = await fetch(`https://askify-api.herokuapp.com/api/queue`, {
       headers: {
-        'Authorization': `Bearer ${userToken}`,
-        'cors': true
+        'Authorization': `Bearer ${token}`,
       }
     })
 
-    const json = await res.JSON()
+    const json = await res.json()
 
     return {
       type: FETCH_QUEUE_SUCCESS,

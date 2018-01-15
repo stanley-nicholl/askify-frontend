@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { signUp } from '../actions/user.actions'
 
-const SignUp = ({ setUserDataToState, userIsLoggedIn, history, ...props }) => {
+const SignUp = ({ ...props }) => {
 
   const signUpPrep = (e) => {
     e.preventDefault()
@@ -18,9 +18,9 @@ const SignUp = ({ setUserDataToState, userIsLoggedIn, history, ...props }) => {
     props.signUp(payload)
   }
 
-  //POSTS A NEW USER TO THE DATABASE AND RETURNS THAT USER'S INFORMATION
-
-  
+  if(props.user.id) {
+    return <Redirect to="/queue" />
+  }
 
   return (
       <div>

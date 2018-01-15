@@ -31,6 +31,8 @@ export function signIn(payload) {
     })
 
     const user = await res.json()
+
+    window.localStorage.setItem('askifyToken', user.token)
     
     dispatch({
       type: LOGGED_IN_SUCCESS,

@@ -1,18 +1,27 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Hero, Footer, Navigation, QueueItem, QueueListHeader, QuestionList } from './commonComponents'
 import { Redirect } from 'react-router-dom'
+
+import { fetchQueue } from '../actions/queue.actions' 
 
 class Queue extends Component{
     constructor(props){
         super(props)
     }
 
+    componentDidMount() {
+        const token = this.props.user.token
+        this.props.fetchQueue(token)
+    }
+
     render(){
-        if (!this.props.loggedIn) {
-            return (
-                <Redirect to='/' />
-            )
-        } else 
+        // if (!this.props.loggedIn) {
+        //     return (
+        //         <Redirect to='/' />
+        //     )
+        // } else 
 
         return (
             <div>
@@ -42,4 +51,8 @@ class Queue extends Component{
     }
 }
 
-export default Queue
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ fetchQueue}, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(Queue)

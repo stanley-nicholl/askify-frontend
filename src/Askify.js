@@ -5,40 +5,35 @@ import SignIn from './components/SignIn'
 import Queue from './components/Queue'
 import QuestionArchive from './components/QuestionArchive'
 
-import { signIn, signUp } from './actions'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import { signIn, signUp } from './actions/user.actions'
+import { fetchQueue } from './actions/queue.actions'
 
 class Askify extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      loggedIn: false,
-      userToken : localStorage.getItem('askifyToken'),
-      userId : null,
-      fname : null,
-      email: null,
-      cohort : null,
-      queueOrder : 0,
-      currentQuestion : null,
-      inQueue : false,
-      queue : [],
-      archive : []
-    }
+    // this.state = {
+    //   loggedIn: false,
+    //   userToken : localStorage.getItem('askifyToken'),
+    //   userId : null,
+    //   fname : null,
+    //   email: null,
+    //   cohort : null,
+    //   queueOrder : 0,
+    //   currentQuestion : null,
+    //   inQueue : false,
+    //   queue : [],
+    //   archive : []
+    // }
   }
 
   //WARNING WARNING WARNING - REMEMBER TO CHANGE TOKEN TO GRAB LOCAL STORAGE
 
   componentDidMount = () => {
-    const token = localStorage.getItem('askifyToken')
-    if(token == "undefined") {
-      this.setState({...this.state, loggedIn: false })
-      console.log("No token found, you are not logged in")
-      return
-    } else {
-      console.log(token);
-      this.setState({...this.state, loggedIn: true})
-      this.fetchUserData(token)
-      this.fetchQueueData(token)
-    }
+    const token = window.localStorage.getItem('askifyToken')
+    this.props.fetchQueue(token)
   }
 
   //RETRIEVES USER INFORMATION IN THE EVENT THEIR TOKEN IS STILL VALID AND DID NOT 'ENTER' THE SITE THROUGH SIGNIN/SIGNUP PAGES
@@ -47,6 +42,7 @@ class Askify extends Component {
     console.log('fetch user data')
     const headers = {
       'Authorization': `Bearer ${userToken}`,
+      'cors': true,
     }
     console.log(headers)
     const userDataResponse = await fetch(`https://askify-api.herokuapp.com/api/user`, {
@@ -89,24 +85,9 @@ class Askify extends Component {
     console.log(archiveDataJSON)
 
     if(!archiveDataJSON || !queueDataJSON) return null
-    await this.setState({ ...this.state, queue: queueDataJSON, archive: archiveDataJSON})
+    // await this.setState({ ...this.state, queue: queueDataJSON, archive: archiveDataJSON})
 
     console.log('fetch queue data finished')
-  }
-
-  //SETS USER DATA TO LOCAL STATE FOR SIGNIN, SIGNUP, AND RETURNING USER WITH TOKEN
-
-  setUserDataToState = async (user) => {
-    console.log('set user data to state function')
-    const { fname, email, cohort } = user
-    const userToken = user.token
-    const userId = user.id
-
-    console.log('update token in localStorage to ', userToken)
-    localStorage.setItem('askifyToken', userToken)
-
-    // this.setState({ userToken: userToken, userId: userId })
-    await this.setState({ ...this.state, userToken, userId, fname, email, cohort })
   }
 
   //ADDS A Q TO THE EXISTING QUEUE AND RERENDERS
@@ -130,13 +111,13 @@ class Askify extends Component {
   //UPDATES USER'S QUEUE STATUS AS THEY CANNOT SUBMIT MULTIPLE QUESTIONS INTO THE QUEUE AT ONCE
 
   updateQueueStatus = (status) => {
-    this.setState({ ...this.state, inQueue: status })
+    // this.setState({ ...this.state, inQueue: status })
   }
 
   //UPDATES USERS'S QUEUE ORDER SHOWING WHERE THEY ARE 'IN LINE'
 
   updateQueueOrder = (order) => {
-    this.setState({ ...this.state, queueOrder: order})
+    // this.setState({ ...this.state, queueOrder: order})
   }
 
 
@@ -147,31 +128,29 @@ class Askify extends Component {
         
           <div className="App">
 
-            <Route exact path='/' component={ (props) => <SignIn {...props} setUserDataToState={this.setUserDataToState} userIsLoggedIn={this.state.loggedIn} /> } />
+            <Route exact path='/' component={ (props) => <SignIn {...props} user={this.props.user} /> } />
 
-            <Route exact path='/signup' component={ (props) => <SignUp {...props} setUserDataToState={this.setUserDataToState} userIsLoggedIn={this.state.loggedIn} /> } />
+            <Route exact path='/signup' component={ (props) => <SignUp {...props} user={this.props.user} /> } />
 
             <Route exact path='/queue' component={ (props) => <Queue {...props} user={{
-              userId: this.state.userId,
-              fname: this.state.fname,
-              inQueue: this.state.inQueue,
-              queueOrder: this.state.queueOrder,
+                userId: this.props.userId,
+                fname: this.props.fname,
+                inQueue: this.props.inQueue,
+                queueOrder: this.props.queueOrder,
               }}
               addToQueue={this.addToQueue}
-              queue={this.state.queue}
+              queue={this.props.queue}
               updateQueueOrder={this.updateQueueOrder}
               updateQueueStatus={this.updateQueueStatus}
-              loggedIn={this.state.loggedIn}
               /> } />
 
             <Route exact path='/archive' component={ (props) => <QuestionArchive {...props} user={{
-              userId: this.state.userId,
-              fname: this.state.fname,
-              inQueue: this.state.inQueue,
-              queueOrder: this.state.queueOrder,
+                userId: this.props.userId,
+                fname: this.props.fname,
+                inQueue: this.props.inQueue,
+                queueOrder: this.props.queueOrder,
               }}
-              questionArchive={this.state.archive}
-              loggedIn={this.state.loggedIn}
+              questionArchive={this.props.archive}
               /> } />
 
           </div> 
@@ -182,6 +161,16 @@ class Askify extends Component {
   }
 }
 
-export default Askify;
+function mapStateToProps (state) {
+  return {
+    queue: state.queue,
+    archive: state.archive,
+    user: state.user,
+  }
+}
 
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ fetchQueue }, dispatch)
+}
 
+export default connect(mapStateToProps, mapDispatchToProps)(Askify)

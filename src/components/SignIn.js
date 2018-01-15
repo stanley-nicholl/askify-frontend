@@ -5,10 +5,9 @@ import { bindActionCreators } from 'redux'
 
 import { signIn } from '../actions/user.actions'
 
-const SignIn = ({ setUserDataToState, userIsLoggedIn, history, ...props }) => {
+const SignIn = ({ setUserDataToState, history, ...props }) => {
 
   const signInPrep = (e) => {
-    console.log('clicked button')
     e.preventDefault()
     const payload={
       email: e.target.email.value,
@@ -18,7 +17,7 @@ const SignIn = ({ setUserDataToState, userIsLoggedIn, history, ...props }) => {
     props.signIn(payload)
   }
 
-  if(userIsLoggedIn) {
+  if(props.user.id) {
     return <Redirect to="/queue" />
   }
 
