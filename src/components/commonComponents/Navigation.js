@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Navigation = ({ navItem, fname, queueOrder }) => {
+const Navigation = ({ navItem, fname, queueOrder, logout }) => {
 
     return (
         <nav className="navbar py-2 navigation">
@@ -14,6 +14,7 @@ const Navigation = ({ navItem, fname, queueOrder }) => {
                     <p className=' text-white font-weight-bold my-0'>{queueOrder}</p>
                 </div>
                 <a className="archived mb-0 mr-4 text-white nav-item" href="/archive.html">{navItem}</a>
+                <div className="archived mb-0 mr-4 text-white nav-item" onClick={ logout }>Log out</div>
             </div>
         </nav>
     )
