@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-const SignUp = ({ setUserDataToState, history }) => {
+const SignUp = ({ setUserDataToState, userIsLoggedIn, history }) => {
 
   const signUpPrep = (e) => {
     e.preventDefault()

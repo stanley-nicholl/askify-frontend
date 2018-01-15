@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
-const SignIn = ({ setUserDataToState, history }) => {
+const SignIn = ({ setUserDataToState, userIsLoggedIn, history }) => {
 
   const signInPrep = (e) => {
     e.preventDefault()
@@ -27,10 +27,14 @@ const SignIn = ({ setUserDataToState, history }) => {
       document.getElementById('signinError').textContent = `Incorrect email and password combo`
       return null
     }else{
-      // console.log(user);
+      console.log(user);
       setUserDataToState(user)
       setTimeout(() => history.push('/queue'), 1000)
     }
+  }
+
+  if(userIsLoggedIn) {
+    return <Redirect to="/queue" />
   }
 
   return (

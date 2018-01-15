@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Hero, Footer, Navigation, QueueItem, QueueListHeader, QuestionList } from './commonComponents'
+import { Redirect } from 'react-router-dom'
 
 class Queue extends Component{
     constructor(props){
@@ -7,6 +8,11 @@ class Queue extends Component{
     }
 
     render(){
+        if (!this.props.loggedIn) {
+            return (
+                <Redirect to='/' />
+            )
+        } else 
 
         return (
             <div>
