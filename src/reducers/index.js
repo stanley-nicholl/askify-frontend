@@ -6,7 +6,8 @@ import {
   LOGGED_IN_SUCCESS,
   LOGGED_OUT_SUCCESS,
   FETCH_USER_SUCCESS,
-  POST_QUESTION
+  POST_QUESTION,
+  UPDATE_QUEUE_POSITION
 } from '../actions'
 
 // initial state for queue and archive arrays
@@ -14,12 +15,11 @@ const INITIAL_STATE = []
 
 // initial state for user
 const INITIAL_USER_STATE = {
-  userToken : null,
-  userId : null,
+  id: 0,
   fname : null,
   email: null,
   cohort : null,
-  inQueue : false,
+  admin: false,
   order : 0
 }
 
@@ -59,6 +59,8 @@ function user(state = INITIAL_USER_STATE, action) {
       return {...state, ...action.payload}
     case LOGGED_OUT_SUCCESS:
       return INITIAL_USER_STATE
+    case UPDATE_QUEUE_POSITION:
+      return {...state, order: action.payload }
     default:
       return state
   }

@@ -45,7 +45,7 @@ const Hero = ({ postQuestion, user }) => {
       document.getElementById('error').innerHTML = ''
 
       const token = localStorage.getItem('askifyToken')
-      console.log(token)
+
       const question = e.target.questionText.value
       postQuestion({ question, fname, cohort }, token)
     }

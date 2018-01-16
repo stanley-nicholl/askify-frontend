@@ -8,20 +8,27 @@ import QuestionArchive from './components/QuestionArchive'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { signIn, signUp, fetchUser, logUserOut } from './actions/user.actions'
+import {
+  signIn,
+  signUp,
+  fetchUser,
+  logUserOut,
+  updateQueuePosition
+} from './actions/user.actions'
+
 import { fetchQueue } from './actions/queue.actions'
 
 
 class Askify extends Component {
   constructor(props){
     super(props)
-
   }
 
   async componentDidMount () {
     const token = await window.localStorage.getItem('askifyToken')
-    await this.props.fetchUser(token)
-    await this.props.fetchQueue(token)
+    const user = await this.props.fetchUser(token)
+    const queue = await this.props.fetchQueue(token)
+    this.props.updateQueuePosition(this.props.user, this.props.queue)
   }
 
   render() {
@@ -54,7 +61,14 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ fetchUser, signIn, signUp, logUserOut, fetchQueue }, dispatch)
+  return bindActionCreators({
+    fetchUser,
+    signIn,
+    signUp,
+    logUserOut,
+    fetchQueue,
+    updateQueuePosition, 
+  }, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Askify)
