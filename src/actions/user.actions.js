@@ -6,6 +6,7 @@ import {
   UPDATE_QUEUE_POSITION
 } from "./index";
 
+
 export function fetchUser(token) {
   return async (dispatch) => {
 
@@ -75,7 +76,7 @@ export function logUserOut() {
 export function updateQueuePosition(user, queue) {
   return async (dispatch) => {
     const position = queue.findIndex((item => {
-      return  item.userid === user.id
+      return item.userid === user.id
     }))
 
     dispatch({

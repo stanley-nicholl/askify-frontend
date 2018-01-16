@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Collapse} from 'react-collapse';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { updateQuestion, postAnswer } from '../../actions/queue.actions'
+import { updateQuestion, postAnswer, fetchQueue } from '../../actions/queue.actions'
 
 class QuestionItem extends Component {
 
@@ -54,18 +54,19 @@ class QuestionItem extends Component {
     })
   }
 
-  submitUpdateQuestion = (e) => {
+  submitUpdateQuestion = async (e) => {
     e.preventDefault()
     const token = window.localStorage.getItem('askifyToken')
-    this.props.updateQuestion(this.props.id, this.state.question, token)
+    await this.props.updateQuestion(this.props.id, this.state.question, token)
+    this.props.fetchQueue(token)
     this.editQuestion()
   }
 
-  submitQuestionAnswer = (e) => {
+  submitQuestionAnswer = async (e) => {
     e.preventDefault()
     const token = window.localStorage.getItem('askifyToken')
-    this.props.postAnswer(this.props.id, this.props.fname, this.props.cohort, this.state.answer, token)
-    this.answerQuestion()
+    await this.props.postAnswer(this.props.id, this.props.fname, this.props.cohort, this.state.answer, token)
+    this.props.fetchQueue(token)
   }
 
   buttonId = (role) => {
@@ -158,7 +159,7 @@ class QuestionItem extends Component {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ updateQuestion, postAnswer }, dispatch)
+  return bindActionCreators({ updateQuestion, postAnswer, fetchQueue }, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(QuestionItem)
