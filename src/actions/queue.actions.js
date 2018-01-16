@@ -1,11 +1,9 @@
 
-import {
-  FETCH_QUEUE_SUCCESS,
-  POST_QUESTION
-} from '../actions'
+import { FETCH_QUEUE_SUCCESS } from '../actions'
 
 export function fetchQueue(token) {
   return async (dispatch) => {
+
     const res = await fetch(`https://askify-api.herokuapp.com/api/queue`, {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -20,36 +18,17 @@ export function fetchQueue(token) {
   }
 }
 
-export function postQuestion(payload, token) {
-  return async (dispatch) => {
-    const res = await fetch(`https://askify-api.herokuapp.com/api/questions/`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify(payload)
-    })
-    dispatch(fetchQueue(token))
-  }
+
+export function postQuestion() {
+
 }
 
 export function postAnswer() {
 
 }
 
-export function updateQuestion(id, question, token) {
-  return async (dispatch) => {
-    console.log('updating question', id, 'with value', question)
-    const res = await fetch(`https://askify-api.herokuapp.com/api/questions/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
-      body: JSON.stringify({question})
-    })
+export function updateQuestion() {
 
-    dispatch(fetchQueue(token))
-  }
 }
 
 export function updateAnswer() {
