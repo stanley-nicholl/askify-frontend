@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { updateQuestion } from '../../actions/queue.actions'
 
 class QuestionItem extends Component {
   
@@ -7,8 +10,23 @@ class QuestionItem extends Component {
     this.state = {
       styling: 'd-flex row question-item py-3',
       editing: false,
-      disabled: 'false'
+      disabled: 'false',
+      question: ''
     }
+  }
+
+  componentDidMount() {
+    this.setState({
+      ...this.state,
+      question: this.props.question
+    })
+  }
+
+  handleEditChange = (e) => {
+    this.setState({
+      ...this.state,
+      question: e.target.value
+    })
   }
 
   editQuestion = (e) => {
@@ -19,6 +37,11 @@ class QuestionItem extends Component {
     })
   }
 
+  submitUpdateQuestion = (e) => {
+    e.preventDefault()
+    this.props.updateQuestion(this.state.question)
+  }
+
   buttonId = (role) => {
     return this.props.id + "-" + role
   }
@@ -27,12 +50,29 @@ class QuestionItem extends Component {
     if (this.state.editing) {
       return (
         <div className="col-6 d-flex align-items-center">
-          <input type="text" className="element topic" id="${id}-question" value={this.props.question} />
+          <input type="text" className="element topic" id={this.buttonId('question')} value={this.state.question} onChange={this.handleEditChange}/>
         </div>
       )
     } else return (
       <div className="col-6 d-flex align-items-center">
-        <p className="element topic" id="${id}-question">{this.props.question}</p>
+        <p className="element topic" id={this.buttonId('question')}>{this.props.question}</p>
+      </div>
+    )
+  }
+
+  renderButtons() {
+    if (this.state.editing) {
+      return (
+        <div className="col-2 d-flex flex-column align-items-center justify-content-center">
+          <button type="button" id={this.buttonId('submit')} className='btn btn-warning waves-effect btn-sm item-button mt-2' onClick={e => this.submitUpdateQuestion(e)}>Submit</button>
+          <button type="button" id={this.buttonId('cancel')} className='btn waves-effect btn-sm item-button mt-2 answered-btn' onClick={e => this.cancelEdit(e)}>Cancel</button>
+        </div>
+      )
+    } else 
+    return (
+      <div className="col-2 d-flex flex-column align-items-center justify-content-center">
+        <button type="button" id={this.buttonId('edit')} className='btn btn-warning waves-effect btn-sm item-button mt-2' onClick={e => this.editQuestion(e)}>Edit</button>
+        <button type="button" id={this.buttonId('answered')} className='btn waves-effect btn-sm item-button mt-2 answered-btn' disabled={this.state.disabled}>Answered</button>
       </div>
     )
   }
@@ -47,13 +87,14 @@ class QuestionItem extends Component {
           <p className="element name">{this.props.name}</p>
         </div>
         { this.renderQuestionText() }
-        <div className="col-2 d-flex flex-column align-items-center justify-content-center">
-          <button type="button" id={this.buttonId('edit')} className='btn btn-warning waves-effect btn-sm item-button mt-2' onClick={e => this.editQuestion(e)}>Edit</button>
-          <button type="button" id={this.buttonId('answered')} className='btn waves-effect btn-sm item-button mt-2 answered-btn' disabled={this.state.disabled}>Answered</button>
-        </div>
+        { this.renderButtons() }
       </div>
     )
   }
 }
- 
-export default QuestionItem
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ updateQuestion }, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(QuestionItem)
