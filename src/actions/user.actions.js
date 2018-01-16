@@ -2,7 +2,8 @@ import {
   FETCH_USER_SUCCESS,
   LOGGED_OUT_SUCCESS,
   LOGGED_IN_SUCCESS,
-  SIGN_UP_SUCCESS
+  SIGN_UP_SUCCESS,
+  UPDATE_QUEUE_POSITION
 } from "./index";
 
 export function fetchUser(token) {
@@ -16,7 +17,6 @@ export function fetchUser(token) {
       headers: header
     })
     const json = await res.json()
-    console.log("results of fetch user", json)
 
     dispatch({
       type: FETCH_USER_SUCCESS,
@@ -33,7 +33,6 @@ export function signIn(payload) {
     })
 
     const user = await res.json()
-    console.log("results of sign in", user)
 
     window.localStorage.setItem('askifyToken', user.userToken)
     
@@ -52,7 +51,6 @@ export function signUp(payload) {
     })  
 
     const user = await newUser.json()
-    console.log("results of sign up", user)
 
     dispatch({
       type: SIGN_UP_SUCCESS,
@@ -66,6 +64,19 @@ export function logUserOut() {
 
     dispatch({
       type: LOGGED_OUT_SUCCESS
+    })
+  }
+}
+
+export function updateQueuePosition(user, queue) {
+  return async (dispatch) => {
+    const position = queue.findIndex((item => {
+      return  item.userid === user.id
+    }))
+
+    dispatch({
+      type: UPDATE_QUEUE_POSITION,
+      payload: position + 1
     })
   }
 }

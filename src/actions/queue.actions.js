@@ -6,7 +6,6 @@ import {
 
 export function fetchQueue(token) {
   return async (dispatch) => {
-    console.log('fetchqueeu')
     const res = await fetch(`https://askify-api.herokuapp.com/api/queue`, {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -21,10 +20,8 @@ export function fetchQueue(token) {
   }
 }
 
-
 export function postQuestion(payload, token) {
   return async (dispatch) => {
-    console.log('post question, payload:', payload)
     const res = await fetch(`https://askify-api.herokuapp.com/api/questions/`, {
       method: 'POST',
       headers: {
