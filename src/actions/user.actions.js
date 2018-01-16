@@ -34,7 +34,7 @@ export function signIn(payload) {
 
     const user = await res.json()
 
-    window.localStorage.setItem('askifyToken', user.userToken)
+    window.localStorage.setItem('askifyToken', user.token)
     
     dispatch({
       type: LOGGED_IN_SUCCESS,
@@ -51,6 +51,7 @@ export function signUp(payload) {
     })  
 
     const user = await newUser.json()
+    window.localStorage.setItem('askifyToken', user.token)
 
     dispatch({
       type: SIGN_UP_SUCCESS,
@@ -61,6 +62,8 @@ export function signUp(payload) {
 
 export function logUserOut() {
   return async (dispatch) => {
+
+    window.localStorage.removeItem('askifyToken')
 
     dispatch({
       type: LOGGED_OUT_SUCCESS
