@@ -39,7 +39,8 @@ class QuestionItem extends Component {
 
   submitUpdateQuestion = (e) => {
     e.preventDefault()
-    this.props.updateQuestion(this.state.question)
+    const token = window.localStorage.getItem('askifyToken')
+    this.props.updateQuestion(this.props.id, this.state.question, token)
   }
 
   buttonId = (role) => {
