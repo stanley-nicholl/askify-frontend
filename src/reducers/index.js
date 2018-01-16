@@ -61,6 +61,7 @@ function user(state = INITIAL_USER_STATE, action) {
       return INITIAL_USER_STATE
     case UPDATE_QUEUE_POSITION:
       return {...state, order: action.payload }
+    case FETCH_QUEUE_SUCCESS:
     default:
       return state
   }

@@ -6,6 +6,7 @@ import {
   UPDATE_QUEUE_POSITION
 } from "./index";
 
+
 export function fetchUser(token) {
   return async (dispatch) => {
 
