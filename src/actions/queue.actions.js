@@ -23,8 +23,20 @@ export function postQuestion() {
 
 }
 
-export function postAnswer() {
-
+export function postAnswer(qid, fname, cohort, answer, token) {
+  return async (dispatch) => {
+    const res = await fetch(`https://askify-api.herokuapp.com/api/questions/${qid}/answers`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        answer,
+        fname,
+        cohort
+      })
+    })
+  }
 }
 
 export function updateQuestion() {
