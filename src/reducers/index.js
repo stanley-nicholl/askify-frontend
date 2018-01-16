@@ -31,7 +31,7 @@ function queue(state = INITIAL_STATE, action) {
 
     // these actions need to be implemented
     case POST_QUESTION:
-      return [...action.payload]
+      return [...state, ...action.payload]
     // case UPDATE_QUESTION:
     // case POST_ANSWER:
     // case UPDATE_ANSWER:
@@ -56,7 +56,7 @@ function user(state = INITIAL_USER_STATE, action) {
     case FETCH_USER_SUCCESS:
     case LOGGED_IN_SUCCESS:
     case SIGN_UP_SUCCESS:
-      return action.payload
+      return {...state, ...action.payload}
     case LOGGED_OUT_SUCCESS:
       return INITIAL_USER_STATE
     default:

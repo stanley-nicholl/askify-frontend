@@ -24,18 +24,14 @@ export function fetchQueue(token) {
 
 export function postQuestion(payload, token) {
   return async (dispatch) => {
-
     const res = await fetch(`https://askify-api.herokuapp.com/api/questions`, {
+      method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
-      }
+      },
+      body: JSON.stringify(payload)
     })
-    const json = await res.json()
-
-    dispatch({
-      type: POST_QUESTION,
-      payload: json
-    })
+    dispatch(fetchQueue())
   }
 }
 
