@@ -99,10 +99,6 @@ class QuestionItem extends Component {
     this.setState({ ...this.state, collapsed: !this.state.collapsed, answering: !this.state.answering })
   }
 
-  //cancel edit function
-  //update state when editing and answering
-
-
   renderButtons() {
     if(this.props.currentUserId !== this.props.questionUserId){
       return (
