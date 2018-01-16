@@ -45,6 +45,7 @@ export function postAnswer(qid, fname, cohort, answer, token) {
         cohort
       })
     })
+    dispatch(fetchQueue(token))
   }
 }
 
