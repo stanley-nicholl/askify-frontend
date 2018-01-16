@@ -26,9 +26,11 @@ class Askify extends Component {
 
   async componentDidMount () {
     const token = await window.localStorage.getItem('askifyToken')
-    const user = await this.props.fetchUser(token)
-    const queue = await this.props.fetchQueue(token)
-    this.props.updateQueuePosition(this.props.user, this.props.queue)
+    if(token) {
+      const user = await this.props.fetchUser(token)
+      const queue = await this.props.fetchQueue(token)
+      this.props.updateQueuePosition(this.props.user, this.props.queue)
+    } 
   }
 
   render() {
