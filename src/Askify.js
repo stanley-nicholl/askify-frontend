@@ -15,7 +15,7 @@ import { fetchQueue } from './actions/queue.actions'
 class Askify extends Component {
   constructor(props){
     super(props)
-    
+
   }
 
   async componentDidMount () {
@@ -39,7 +39,7 @@ class Askify extends Component {
             questionArchive={this.props.archive}
             /> } />
           </div>
-        </Router> 
+        </Router>
       </div>
     );
   }

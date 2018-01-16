@@ -1,10 +1,15 @@
 import React from 'react'
 
-const Hero = ({ addToQueue, userId, inQueue, updateQueueStatus}) => {
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+import { postQuestion } from '../../actions/queue.actions'
+
+const Hero = ({ postQuestion, user }) => {
     let error
 
     const canSubmit = () => {
-      if(!inQueue) {
+      if(!user.inQueue) {
         return (
           <button
             type="submit"
@@ -30,16 +35,19 @@ const Hero = ({ addToQueue, userId, inQueue, updateQueueStatus}) => {
 
     const prepareQuestion = (e) => {
       e.preventDefault()
-        if(inQueue === true) {
-          error = 'Users can only have one question in queue at a time'
-          document.getElementById('error').innerHTML = error
-          return null
-        }
-        document.getElementById('error').innerHTML = ''
+      const { userId, inQueue, fname, cohort } = user
 
-        const question = e.target.questionText.value
+      if(inQueue === true) {
+        error = 'Users can only have one question in queue at a time'
+        document.getElementById('error').innerHTML = error
+        return null
+      }
+      document.getElementById('error').innerHTML = ''
 
-        // addToQueue(userId, question)
+      const token = localStorage.getItem('askifyToken')
+      console.log(token)
+      const question = e.target.questionText.value
+      postQuestion({ question, fname, cohort }, token)
     }
 
     return (
@@ -59,4 +67,14 @@ const Hero = ({ addToQueue, userId, inQueue, updateQueueStatus}) => {
     )
 }
 
-export { Hero }
+function mapStateToProps (state) {
+  return {
+    user: state.user,
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ postQuestion }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Hero)
