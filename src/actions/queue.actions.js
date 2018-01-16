@@ -33,7 +33,7 @@ export function postQuestion(payload, token) {
   }
 }
 
-export function postAnswer(qid, answer, fname, cohort, token) {
+export function postAnswer(qid, fname, cohort, answer, token) {
   return async (dispatch) => {
     const res = await fetch(`https://askify-api.herokuapp.com/api/questions/${qid}/answers`, {
       method: 'POST',
