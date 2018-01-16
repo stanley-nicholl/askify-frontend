@@ -1,21 +1,17 @@
 import React, { Component } from 'react'
-import { Collapse } from 'mdbreact'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { updateQuestion } from '../../actions/queue.actions'
 
 class QuestionItem extends Component {
-
+  
   constructor(props) {
     super(props)
-
-    // this.toggle = this.toggle.bind(this)
     this.state = {
       styling: 'd-flex row question-item py-3',
       editing: false,
       disabled: 'false',
-      question: '',
-      collapse: false
+      question: ''
     }
   }
 
@@ -73,22 +69,16 @@ class QuestionItem extends Component {
           <button type="button" id={this.buttonId('cancel')} className='btn waves-effect btn-sm item-button mt-2 answered-btn' onClick={e => this.cancelEdit(e)}>Cancel</button>
         </div>
       )
-    } else
+    } else 
     return (
       <div className="col-2 d-flex flex-column align-items-center justify-content-center">
         <button type="button" id={this.buttonId('edit')} className='btn btn-warning waves-effect btn-sm item-button mt-2' onClick={e => this.editQuestion(e)}>Edit</button>
-        <button type="button" id={this.buttonId('answered')} className='btn waves-effect btn-sm item-button mt-2 answered-btn' onClick={e => this.toggle(e)}>Answered</button>
+        <button type="button" id={this.buttonId('answered')} className='btn waves-effect btn-sm item-button mt-2 answered-btn' disabled={this.state.disabled}>Answered</button>
       </div>
     )
   }
 
-  toggle = (e) => {
-    e.preventDefault()
-    console.log('toggle');
-    this.setState({ collapse: !this.state.collapse });
-  }
-
-  render() {
+  render() { 
     return (
       <div className={this.state.styling}>
         <div className="col-1 d-flex justify-content-center align-items-center">
@@ -99,12 +89,6 @@ class QuestionItem extends Component {
         </div>
         { this.renderQuestionText() }
         { this.renderButtons() }
-        <Collapse isOpen={this.state.collapse}>
-          <div className='d-flex'>
-            <input type="text" placeholder='What solved the issue?' className="element topic" id={this.buttonId('answer')} />
-            <button type="button" id={this.buttonId('answered')} className='btn waves-effect btn-sm item-button mt-2 answered-btn'>Submit</button>
-          </div>
-        </Collapse>
       </div>
     )
   }
