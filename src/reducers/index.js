@@ -27,10 +27,10 @@ function queue(state = INITIAL_STATE, action) {
       return [...action.payload]
 
     // these actions need to be implemented
-    case POST_QUESTION:
-    case UPDATE_QUESTION:
-    case POST_ANSWER:
-    case UPDATE_ANSWER:
+    // case POST_QUESTION:
+    // case UPDATE_QUESTION:
+    // case POST_ANSWER:
+    // case UPDATE_ANSWER:
     default: 
       return state
   }
