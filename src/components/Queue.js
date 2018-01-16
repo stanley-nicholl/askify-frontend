@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 // import { connect } from 'react-redux'
 // import { bindActionCreators } from 'redux'
-import { Hero, Footer, Navigation, QueueItem, QueueListHeader, QuestionList } from './commonComponents'
+import { Footer, QueueItem, QueueListHeader, QuestionList } from './commonComponents'
+import Navigation from './commonComponents/Navigation'
+import Hero from './commonComponents/Hero'
 import { Redirect } from 'react-router-dom'
 
 
 class Queue extends Component{
     constructor(props){
         super(props)
-        console.log('queue constructor')
     }
 
     render(){

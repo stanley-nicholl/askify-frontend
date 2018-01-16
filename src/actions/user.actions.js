@@ -35,7 +35,7 @@ export function signIn(payload) {
     const user = await res.json()
     console.log("results of sign in", user)
 
-    window.localStorage.setItem('askifyToken', user.token)
+    window.localStorage.setItem('askifyToken', user.userToken)
     
     dispatch({
       type: LOGGED_IN_SUCCESS,

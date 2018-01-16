@@ -4,18 +4,18 @@ const QueueListHeader = () => {
     return (
         <div className="list-head stick-top">
             <div className="container">
-                <div className="header row mt-0 py-3">
+                <div className="header row mt-0 pt-2">
                     <div className="col-1 d-flex justify-content-center">
-                        <h3>#</h3>
+                        <h5>#</h5>
                     </div>
                     <div className="col-3">
-                        <h3>Name</h3>
+                        <h5>Name</h5>
                     </div>
                     <div className="col-6">
-                        <h3>Question</h3>
+                        <h5>Question</h5>
                     </div>
                     <div className="col-2 d-flex justify-content-center">
-                        <h3>Actions</h3>
+                        <h5>Actions</h5>
                     </div>
                 </div>
             </div>

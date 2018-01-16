@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Footer, Navigation, ArchiveList, QueueListHeader } from './commonComponents'
+import { Footer, ArchiveList, QueueListHeader } from './commonComponents'
+import Navigation from './commonComponents/Navigation'
 
 class QuestionArchive extends Component{
 

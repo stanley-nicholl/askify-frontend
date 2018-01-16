@@ -1,7 +1,10 @@
 import React from 'react'
 
-const Navigation = ({ navItem, fname, queueOrder, logout }) => {
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
+const Navigation = ({ navItem, logout, user }) => {
+  console.log(user);
     return (
         <nav className="navbar py-2 navigation">
             <a className="navbar-brand " href="#">
@@ -9,9 +12,9 @@ const Navigation = ({ navItem, fname, queueOrder, logout }) => {
                  ASKIFY<small className='powered-by text-white'>powered by galvanize</small>
             </a>
             <div className="right-side d-flex align-items-center">
-                <p className="mr-3 mb-0 text-white" id="greeting">Hello{fname && `, ${fname}`}</p>
+                <p className="mr-3 mb-0 text-white" id="greeting">Hello{user.fname && `, ${user.fname}`}</p>
                 <div id="queueSpot" className="spot text-center mr-3 d-flex align-items-center justify-content-center">
-                    <p className=' text-white font-weight-bold my-0'>{queueOrder}</p>
+                    <p className=' text-white font-weight-bold my-0'>{user.order}</p>
                 </div>
                 <a className="archived mb-0 mr-4 text-white nav-item" href="/archive.html">{navItem}</a>
                 <div className="archived mb-0 mr-4 text-white nav-item" onClick={ logout }>Log out</div>
@@ -20,4 +23,10 @@ const Navigation = ({ navItem, fname, queueOrder, logout }) => {
     )
 }
 
-export { Navigation }
+function mapStateToProps (state) {
+  return {
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps)(Navigation)
