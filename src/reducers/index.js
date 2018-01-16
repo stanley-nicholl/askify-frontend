@@ -44,7 +44,7 @@ function queue(state = INITIAL_STATE, action) {
 function archive(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_ARCHIVE_SUCCESS:
-    return [...action.payload]
+      return [...action.payload]
     default:
       return state
   }

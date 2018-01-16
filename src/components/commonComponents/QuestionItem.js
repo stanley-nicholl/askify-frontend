@@ -10,7 +10,6 @@ class QuestionItem extends Component {
     this.state = {
       styling: 'd-flex row question-item py-3',
       editing: false,
-      disabled: 'false',
       question: ''
     }
   }
@@ -72,8 +71,8 @@ class QuestionItem extends Component {
     } else 
     return (
       <div className="col-2 d-flex flex-column align-items-center justify-content-center">
-        <button type="button" id={this.buttonId('edit')} className='btn btn-warning waves-effect btn-sm item-button mt-2' onClick={e => this.editQuestion(e)}>Edit</button>
-        <button type="button" id={this.buttonId('answered')} className='btn waves-effect btn-sm item-button mt-2 answered-btn' disabled={this.state.disabled}>Answered</button>
+        <button type="button" id={this.buttonId('edit')} className='btn btn-warning waves-effect btn-sm item-button mt-2'  onClick={e => this.editQuestion(e)}>Edit</button>
+        <button type="button" id={this.buttonId('answered')} className='btn waves-effect btn-sm item-button mt-2 answered-btn'>Answered</button>
       </div>
     )
   }

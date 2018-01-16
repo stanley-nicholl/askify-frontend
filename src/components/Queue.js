@@ -36,7 +36,7 @@ class Queue extends Component{
               <QuestionList
                 queue={this.props.queue}
                 updateQueueOrder={this.props.updateQueueOrder}
-                currentUserId={this.props.user.userId}
+                currentUserId={this.props.user.id}
                 currentQueueOrder={this.props.user.queueOrder}
               />
               <Footer />
