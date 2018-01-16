@@ -8,7 +8,10 @@ import {
   FETCH_USER_SUCCESS
 } from '../actions'
 
+// initial state for queue and archive arrays
 const INITIAL_STATE = []
+
+// initial state for user 
 const INITIAL_USER_STATE = {
   userToken : null,
   userId : null,
@@ -17,15 +20,23 @@ const INITIAL_USER_STATE = {
   cohort : null,
 }
 
+// Queue reducer
 function queue(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_QUEUE_SUCCESS: 
       return [...action.payload]
+
+    // these actions need to be implemented
+    case POST_QUESTION:
+    case UPDATE_QUESTION:
+    case POST_ANSWER:
+    case UPDATE_ANSWER:
     default: 
       return state
   }
 }
 
+// Archive reducer
 function archive(state = INITIAL_STATE, action) {
   switch (action.type) {
     case FETCH_ARCHIVE_SUCCESS: 
@@ -35,6 +46,7 @@ function archive(state = INITIAL_STATE, action) {
   }
 }
 
+// User reducer
 function user(state = INITIAL_USER_STATE, action) {
   switch (action.type) {
     case FETCH_USER_SUCCESS:

@@ -4,7 +4,6 @@ import React, { Component } from 'react'
 import { Hero, Footer, Navigation, QueueItem, QueueListHeader, QuestionList } from './commonComponents'
 import { Redirect } from 'react-router-dom'
 
-// import { fetchQueue } from '../actions/queue.actions' 
 
 class Queue extends Component{
     constructor(props){
