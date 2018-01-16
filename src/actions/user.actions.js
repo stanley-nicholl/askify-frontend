@@ -11,7 +11,6 @@ export function fetchUser(token) {
 
     const header = {
       'Authorization': `Bearer ${token}`,
-
     }
     const res = await fetch(`https://askify-api.herokuapp.com/api/user`, {
       headers: header

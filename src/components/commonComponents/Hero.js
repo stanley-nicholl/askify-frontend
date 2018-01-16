@@ -9,7 +9,7 @@ const Hero = ({ postQuestion, user }) => {
     let error
 
     const canSubmit = () => {
-      if(!user.inQueue) {
+      if(!user.order) {
         return (
           <button
             type="submit"

@@ -17,7 +17,7 @@ const Navigation = ({ navItem, logout, user }) => {
                     <p className=' text-white font-weight-bold my-0'>{user.order}</p>
                 </div>
                 <a className="archived mb-0 mr-4 text-white nav-item" href="/archive.html">{navItem}</a>
-                <div className="archived mb-0 mr-4 text-white nav-item" onClick={ logout }>Log out</div>
+                <a className="archived mb-0 mr-4 text-white nav-item log-out" onClick={ logout }>Log out</a>
             </div>
         </nav>
     )

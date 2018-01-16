@@ -50,7 +50,6 @@ export function postAnswer(qid, fname, cohort, answer, token) {
 
 export function updateQuestion(id, question, token) {
   return async (dispatch) => {
-    console.log('updating question', id, 'with value', question)
     const res = await fetch(`https://askify-api.herokuapp.com/api/questions/${id}`, {
       method: 'PUT',
       headers: {
@@ -61,8 +60,4 @@ export function updateQuestion(id, question, token) {
 
     dispatch(fetchQueue(token))
   }
-}
-
-export function updateAnswer() {
-
 }

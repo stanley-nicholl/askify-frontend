@@ -131,6 +131,7 @@ video {
 
 .nav-item {
   text-decoration: underline;
+  font-size: .8rem;
 }
 
 .spot {
@@ -138,6 +139,14 @@ video {
   width: 2.2rem;
   border-radius: 1.1rem;
   background-color: #f6872a;
+}
+
+.log-out {
+  text-decoration: underline !important;
+}
+
+.log-out:hover {
+  text-decoration: none !important;
 }
 
 /* QUEUE PAGE QUEUE PAGE QUEUE PAGE */

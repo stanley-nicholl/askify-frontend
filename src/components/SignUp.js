@@ -103,7 +103,7 @@ const SignUp = ({ ...props }) => {
                 <div className="modal-footer mx-5 pt-3 mb-1">
                     <p className="font-small grey-text d-flex justify-content-end">Already a member?
                       <Link to={'/'}>
-                        <a href="#" className="ml-1 link"> Sign In</a>
+                        <span className="ml-1 link"> Sign In</span>
                       </Link>
                     </p>
                 </div>

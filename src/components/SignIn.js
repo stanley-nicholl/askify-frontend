@@ -90,7 +90,7 @@ const SignIn = ({ setUserDataToState, history, ...props }) => {
                 <div className="modal-footer mx-5 pt-3 mb-1">
                     <p className="font-small grey-text d-flex justify-content-end">Not a member?
                       <Link to={'/signup'}>
-                        <a href="#" className="ml-1 link"> Sign Up</a>
+                        <span className="ml-1 link"> Sign Up</span>
                       </Link>
                     </p>
                 </div>

@@ -11,6 +11,7 @@ class QuestionItem extends Component {
     this.state = {
       styling: 'd-flex row py-3',
       editing: false,
+      answering: false,
       disabled: 'false',
       question: '',
       answer: '',
@@ -39,24 +40,32 @@ class QuestionItem extends Component {
     })
   }
 
-  editQuestion = (e) => {
-    e.preventDefault()
+  editQuestion = () => {
     this.setState({
       ...this.state,
       editing: !this.state.editing
     })
   }
 
+  answerQuestion = () => {
+    this.setState({
+      ...this.state,
+      answering: !this.state.answering
+    })
+  }
+
   submitUpdateQuestion = (e) => {
     e.preventDefault()
     const token = window.localStorage.getItem('askifyToken')
-    this.props.postQuestion(this.props.id, this.state.question, token)
+    this.props.updateQuestion(this.props.id, this.state.question, token)
+    this.editQuestion()
   }
 
   submitQuestionAnswer = (e) => {
     e.preventDefault()
     const token = window.localStorage.getItem('askifyToken')
     this.props.postAnswer(this.props.id, this.props.fname, this.props.cohort, this.state.answer, token)
+    this.answerQuestion()
   }
 
   buttonId = (role) => {
@@ -77,25 +86,53 @@ class QuestionItem extends Component {
     )
   }
 
+  cancelAnswer = () => {
+    this.setState({ ...this.state, answer: ''})
+    this.toggleCollapse()
+  }
+
+  cancelEdit = () => {
+    this.setState({ ...this.state, editing: false, question: this.props.question })
+  }
+
+  toggleCollapse = () => {
+    this.setState({ ...this.state, collapsed: !this.state.collapsed, answering: !this.state.answering })
+  }
+
+  //cancel edit function
+  //update state when editing and answering
+
+
   renderButtons() {
-    if (this.state.editing) {
+    if(this.props.currentUserId !== this.props.questionUserId){
+      return (
+        <div className="col-2 d-flex flex-column align-items-center justify-content-center">
+          <button type="button" id={this.buttonId('edit')} className='btn btn-blue-grey waves-effect btn-sm item-button mt-2' disabled>Edit</button>
+          <button type="button" id={this.buttonId('answered')} className='btn waves-effect btn-sm item-button mt-2 btn-blue-grey' disabled>Answer</button>
+        </div>
+      )
+    }else if(this.state.editing){
       return (
         <div className="col-2 d-flex flex-column align-items-center justify-content-center">
           <button type="button" id={this.buttonId('submit')} className='btn btn-warning waves-effect btn-sm item-button mt-2' onClick={e => this.submitUpdateQuestion(e)}>Submit</button>
-          <button type="button" id={this.buttonId('cancel')} className='btn waves-effect btn-sm item-button mt-2 answered-btn' onClick={e => this.cancelEdit(e)}>Cancel</button>
+          <button type="button" id={this.buttonId('cancel')} className='btn waves-effect btn-sm btn-danger item-button mt-2' onClick={e => this.cancelEdit(e)}>Cancel</button>
         </div>
       )
-    } else
-    return (
-      <div className="col-2 d-flex flex-column align-items-center justify-content-center">
-        <button type="button" id={this.buttonId('edit')} className='btn btn-warning waves-effect btn-sm item-button mt-2' onClick={e => this.editQuestion(e)}>Edit</button>
-        <button type="button" id={this.buttonId('answered')} className='btn waves-effect btn-sm item-button mt-2 answered-btn' onClick={this.collapsed}>Answered</button>
-      </div>
-    )
-  }
-
-  collapsed = () => {
-    this.setState({ ...this.state, collapsed: !this.state.collapsed })
+    }else if(this.state.answering){
+      return (
+        <div className="col-2 d-flex flex-column align-items-center justify-content-center">
+          <button type="button" id={this.buttonId('submit')} className='btn btn-danger waves-effect btn-sm item-button mt-2' onClick={e => this.cancelAnswer(e)}>Cancel</button>
+          <button type="button" id={this.buttonId('cancel')} className='btn waves-effect btn-sm btn-blue-grey item-button mt-2' disabled >Answer</button>
+        </div>
+      )
+    }else{
+      return (
+        <div className="col-2 d-flex flex-column align-items-center justify-content-center">
+          <button type="button" id={this.buttonId('edit')} className='btn btn-warning waves-effect btn-sm item-button mt-2' onClick={e => this.editQuestion(e)}>Edit</button>
+          <button type="button" id={this.buttonId('answered')} className='btn waves-effect btn-sm item-button mt-2 answered-btn' onClick={this.toggleCollapse}>Answer</button>
+        </div>
+      )
+    }
   }
 
   render() {
