@@ -23,7 +23,7 @@ const Hero = ({ postQuestion, user }) => {
         return (
           <button
             type="submit"
-            className="btn btn-warning px-5 py-4 mb-0 question-btn"
+            className="btn btn-blue-grey px-5 py-4 mb-0 question-btn"
             id="add-request"
             disabled
           >

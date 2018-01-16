@@ -102,8 +102,8 @@ const SignUp = ({ ...props }) => {
                 {/* <!--Footer--> */}
                 <div className="modal-footer mx-5 pt-3 mb-1">
                     <p className="font-small grey-text d-flex justify-content-end">Already a member?
-                      <Link to={'/signin'}>
-                        <a href="#" className="ml-1 link"> Sign Up</a>
+                      <Link to={'/'}>
+                        <a href="#" className="ml-1 link"> Sign In</a>
                       </Link>
                     </p>
                 </div>
@@ -123,4 +123,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(null, mapDispatchToProps)(SignUp)
-

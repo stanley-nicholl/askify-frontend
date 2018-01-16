@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Collapse} from 'react-collapse';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { updateQuestion } from '../../actions/queue.actions'
+import { updateQuestion, postAnswer } from '../../actions/queue.actions'
 
 class QuestionItem extends Component {
 

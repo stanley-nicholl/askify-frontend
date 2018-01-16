@@ -1,4 +1,4 @@
-import { 
+import {
   FETCH_USER_SUCCESS,
   LOGGED_OUT_SUCCESS,
   LOGGED_IN_SUCCESS,
@@ -34,8 +34,8 @@ export function signIn(payload) {
 
     const user = await res.json()
 
-    window.localStorage.setItem('askifyToken', user.userToken)
-    
+    window.localStorage.setItem('askifyToken', user.token)
+
     dispatch({
       type: LOGGED_IN_SUCCESS,
       payload: user
@@ -48,9 +48,11 @@ export function signUp(payload) {
     const newUser = await fetch(`https://askify-api.herokuapp.com/auth/register`, {
       method: 'POST',
       body: JSON.stringify(payload)
-    })  
+    })
 
     const user = await newUser.json()
+
+    window.localStorage.setItem('askifyToken', user.token)
 
     dispatch({
       type: SIGN_UP_SUCCESS,
