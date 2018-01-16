@@ -76,7 +76,7 @@ export function logUserOut() {
 export function updateQueuePosition(user, queue) {
   return async (dispatch) => {
     const position = queue.findIndex((item => {
-      return  item.userid === user.id
+      return item.userid === user.id
     }))
 
     dispatch({

@@ -33,7 +33,18 @@ export function postQuestion(payload, token) {
       body: JSON.stringify(payload)
     })
     dispatch(fetchQueue(token))
-    dispatch(updateQueuePosition(getUserId(token), getQueueData(token)))
+
+    const uid = await getUserId(token)
+    const queue = await getQueueData(token)
+
+    const position = queue.findIndex((item => {
+      return item.userid === uid
+    }))
+
+    dispatch({
+      type: UPDATE_QUEUE_POSITION,
+      payload: position
+    })
   }
 }
 
@@ -51,6 +62,11 @@ export function postAnswer(qid, fname, cohort, answer, token) {
       })
     })
     dispatch(fetchQueue(token))
+    
+    const uid = await getUserId(token)
+    const queue = await getQueueData(token)
+
+    dispatch(updateQueuePosition(uid, queue))
   }
 }
 
@@ -76,7 +92,6 @@ async function getUserId(token) {
     headers: header
   })
   const user = await res.json()
-
   return user.id
 }
 

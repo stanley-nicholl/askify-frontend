@@ -24,6 +24,17 @@ class Askify extends Component {
     super(props)
   }
 
+  shouldComponentUpdate() {
+    const position = this.props.queue.findIndex((item => {
+      return item.userid === this.props.user.id
+    }))
+    if (position !== this.props.user.order) {
+      return true
+    } else {
+      return false 
+    }
+  }
+
   async componentDidMount () {
     const token = await window.localStorage.getItem('askifyToken')
     if(token) {
