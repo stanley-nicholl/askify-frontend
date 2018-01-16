@@ -35,7 +35,7 @@ const Hero = ({ postQuestion, user }) => {
 
     const prepareQuestion = (e) => {
       e.preventDefault()
-      const { userId, inQueue } = user
+      const { userId, inQueue, fname, cohort } = user
 
       if(inQueue === true) {
         error = 'Users can only have one question in queue at a time'
@@ -45,8 +45,9 @@ const Hero = ({ postQuestion, user }) => {
       document.getElementById('error').innerHTML = ''
 
       const token = localStorage.getItem('askifyToken')
+      console.log(token)
       const question = e.target.questionText.value
-      postQuestion({ userId, question }, token)
+      postQuestion({ question, fname, cohort }, token)
     }
 
     return (
