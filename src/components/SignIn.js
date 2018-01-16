@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-const SignIn = ({ signInUser }) => {
+import { signIn } from '../actions/user.actions'
+
+const SignIn = ({ setUserDataToState, history, ...props }) => {
 
   const signInPrep = (e) => {
     e.preventDefault()
@@ -9,7 +13,12 @@ const SignIn = ({ signInUser }) => {
       email: e.target.email.value,
       password: e.target.password.value,
     }
-    signInUser(payload)
+
+    props.signIn(payload)
+  }
+
+  if(props.user.id) {
+    return <Redirect to="/queue" />
   }
 
   return (
@@ -17,7 +26,7 @@ const SignIn = ({ signInUser }) => {
 
         <div className="signin-homepage-video-section">
           <div className="video-background hidden-sm hidden-xs">
-            <video preload="true" autoplay="true" loop="true" className="video" poster="https://s3-us-west-2.amazonaws.com/dotcom-files/video_hero_bg_poster.png">
+            <video preload="true" autoPlay="true" loop="true" className="video" poster="https://s3-us-west-2.amazonaws.com/dotcom-files/video_hero_bg_poster.png">
               <source src="https://s3-us-west-2.amazonaws.com/dotcom-files/hero_video.mp4" type="video/mp4" />
             </video>
             <div className="signin-overlay"></div>
@@ -52,9 +61,13 @@ const SignIn = ({ signInUser }) => {
                         <label htmlFor="Form-email1">Your email</label>
                     </div>
 
-                    <div className="md-form pb-3">
+                    <div className="md-form pb-1">
                         <input type="password" id="Form-pass1" name='password' className="form-control" required/>
                         <label htmlFor="Form-pass1">Your password</label>
+                    </div>
+
+                    <div className='d-flex justify-content-center mt-0 mb-4'>
+                      <small id='signinError'></small>
                     </div>
 
                     <div className="text-center mb-3">
@@ -92,4 +105,8 @@ const SignIn = ({ signInUser }) => {
   )
 }
 
-export default SignIn
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({signIn}, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(SignIn)

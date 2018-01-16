@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-const SignUp = ({ signUpUser }) => {
+import { signUp } from '../actions/user.actions'
+
+const SignUp = ({ ...props }) => {
 
   const signUpPrep = (e) => {
     e.preventDefault()
@@ -11,9 +15,12 @@ const SignUp = ({ signUpUser }) => {
       password: e.target.password.value,
       cohort: e.target.cohort.value
     }
-    signUpUser(payload)
+    props.signUp(payload)
   }
 
+  if(props.user.id) {
+    return <Redirect to="/queue" />
+  }
 
   return (
       <div>
@@ -71,9 +78,14 @@ const SignUp = ({ signUpUser }) => {
                       </div>
                     </div>
 
-                    <div className="text-center mb-3">
+                    <div className="text-center mb-1">
                         <button type="submit" className="btn btn-block btn-rounded z-depth-1a signin-btn">Sign in</button>
                     </div>
+
+                    <div className='d-flex justify-content-center mt-0 mb-4'>
+                      <small id='signupError'></small>
+                    </div>
+
                     <p className="font-small dark-grey-text text-right d-flex justify-content-center mb-3 pt-2"> (coming soon) or Sign in with:</p>
 
                         <div className="row my-3 d-flex justify-content-center">
@@ -106,4 +118,9 @@ const SignUp = ({ signUpUser }) => {
   )
 }
 
-export default SignUp
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({signUp}, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(SignUp)
+
