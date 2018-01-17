@@ -1,10 +1,14 @@
 import React from 'react'
-import QuestionItem from './ArchiveItem'
+import ArchiveItem from './ArchiveItem'
 
-const ArchiveList = ({ questionArchive }) => {
-  return (
-    <div></div>
-  )
+const ArchiveList = ({ archive }) => {
+    return (
+      <div className='archive-list container'>
+        {archive.map((item, index)=>{
+            return <ArchiveItem key={index+1} id={item.id} count={index+1} name={item.fname} question={item.question} answers={item.answers} />
+        })}
+      </div>
+    )
 }
 
 export { ArchiveList }

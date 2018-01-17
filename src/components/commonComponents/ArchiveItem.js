@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ArchiveItem = ({ id, name, question }) => {
+const ArchiveItem = ({ id, name, question, answers }) => {
   return (
     <div className='d-flex row question-item py-3'>
       <div className="col-1 d-flex justify-content-center align-items-center">
@@ -13,11 +13,11 @@ const ArchiveItem = ({ id, name, question }) => {
         <p className="element topic" id="${id}-question">{question}</p>
       </div>
       <div className="col-2 d-flex flex-column align-items-center justify-content-center">
-        <button type="button" id="${id}-edit" className='btn btn-warning waves-effect btn-sm item-button mt-2'>Edit</button>
-        <button type="button" id="${id}-answered" className='btn waves-effect btn-sm item-button mt-2 answered-btn'>Answered</button>
+        <button type="button" id="${id}-answered" className='btn waves-effect btn-sm item-button mt-2 answered-btn'>Show Answer</button>
       </div>
     </div>
+
   )
 }
 
-export { ArchiveItem }
+export default ArchiveItem

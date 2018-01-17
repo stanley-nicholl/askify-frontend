@@ -160,8 +160,8 @@ video {
 
 .jumbotron-fluid {
   background-color: #003a4b;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 2rem;
+  padding-bottom: 2.5rem;
 }
 
 .question {
@@ -173,11 +173,6 @@ video {
   z-index: 0;
 }
 
-.gschool-img {
-  height: 1rem;
-  width: auto;
-}
-
 .list-head {
   background-color: #f6872a;
   color: #fff;
@@ -187,7 +182,7 @@ video {
 }
 
 .question-list {
-  margin-top: 420px;
+  margin-top: 340px;
 }
 
 .question-item {
@@ -225,6 +220,12 @@ video {
   padding: 0 !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
+}
+
+/* ARCHIVE PAGE ARCHIVE PAGE ARCHIVE PAGE */
+
+.archive-list {
+  margin-top: 0px;
 }
 
 @media screen and (max-width: 1200px) {

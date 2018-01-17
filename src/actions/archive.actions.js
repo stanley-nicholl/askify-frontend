@@ -1,5 +1,6 @@
-
-
+import {
+  FETCH_ARCHIVE_SUCCESS
+} from '../actions'
 
 export function fetchArchive(token) {
   return async (dispatch) => {

@@ -3,8 +3,6 @@ import { Footer, QueueItem, QueueListHeader, QuestionList } from './commonCompon
 import Navigation from './commonComponents/Navigation'
 import Hero from './commonComponents/Hero'
 import { Redirect } from 'react-router-dom'
-// import { fetchQueue } from '../actions/queue.actions'
-// import { fetchUser, updateQueuePosition } from '../actions/user.actions'
 
 
 const Queue = (props) => {
@@ -15,7 +13,8 @@ const Queue = (props) => {
         <div>
           <div className='top-section'>
             <Navigation
-                navItem={'Archived Questions'}
+                navItem={'Archive'}
+                navRoute={'/archive'}
                 fname={props.user.fname}
                 queueOrder={props.user.queueOrder}
                 logout={props.logout}

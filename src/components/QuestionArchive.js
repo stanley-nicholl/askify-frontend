@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import { Footer, ArchiveList, QueueListHeader } from './commonComponents'
 import Navigation from './commonComponents/Navigation'
 
-class QuestionArchive extends Component{
-
-    render(){
-        return (
-            <div>
-              <Navigation
-                  navItem={'Queue'}
-                  fname={this.props.user.fname}
-                  queueOrder={this.props.user.queueOrder}
-              />
-              <QueueListHeader />
-              <ArchiveList questionArchive={this.props.questionArchive} />
-            </div>
-        )
-    }
+const QuestionArchive = (props) => {
+  if(!props.user.id) {
+      return <Redirect to="/" />
+  }
+  return (
+      <div>
+        <Navigation
+            navItem={'Queue'}
+            navRoute={'/queue'}
+            fname={props.user.fname}
+            queueOrder={props.user.order}
+            logout={props.logout}
+        />
+        <QueueListHeader />
+        <ArchiveList archive={props.archive} />
+      </div>
+    )
 }
 
 export default QuestionArchive

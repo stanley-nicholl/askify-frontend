@@ -18,6 +18,8 @@ import {
 
 import { fetchQueue } from './actions/queue.actions'
 
+import { fetchArchive } from './actions/archive.actions'
+
 
 class Askify extends Component {
   constructor(props){
@@ -31,7 +33,7 @@ class Askify extends Component {
     if (position !== this.props.user.order) {
       return true
     } else {
-      return false 
+      return false
     }
   }
 
@@ -40,6 +42,8 @@ class Askify extends Component {
     if(token) {
       const user = await this.props.fetchUser(token)
       const queue = await this.props.fetchQueue(token)
+      const archive = await this.props.fetchArchive(token)
+      console.log(archive);
       this.props.updateQueuePosition(this.props.user, this.props.queue)
     }
   }
@@ -51,12 +55,17 @@ class Askify extends Component {
         <div className="App">
           <Route exact path='/' component={ (props) => <SignIn {...props} user={this.props.user} /> } />
           <Route exact path='/signup' component={ (props) => <SignUp {...props} user={this.props.user} /> } />
-          <Route exact path='/queue' component={ (props) => <Queue {...props} user={this.props.user}
-            queue={this.props.queue}
-            logout={this.props.logUserOut}
+          <Route exact path='/queue'
+            component={ (props) => <Queue {...props} 
+              user={this.props.user}
+              queue={this.props.queue}
+              logout={this.props.logUserOut}
             /> } />
-          <Route exact path='/archive' component={ (props) => <QuestionArchive {...props} user={this.props.user}
-            questionArchive={this.props.archive}
+          <Route exact path='/archive'
+            component={ (props) => <QuestionArchive {...props}
+              user={this.props.user}
+              archive={this.props.archive}
+              logout={this.props.logUserOut}
             /> } />
           </div>
         </Router>
@@ -81,6 +90,7 @@ function mapDispatchToProps (dispatch) {
     logUserOut,
     fetchQueue,
     updateQueuePosition,
+    fetchArchive
   }, dispatch)
 }
 

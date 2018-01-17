@@ -62,7 +62,7 @@ export function postAnswer(qid, fname, cohort, answer, token) {
       })
     })
     dispatch(fetchQueue(token))
-    
+
     const uid = await getUserId(token)
     const queue = await getQueueData(token)
 
@@ -81,6 +81,11 @@ export function updateQuestion(id, question, token) {
     })
 
     dispatch(fetchQueue(token))
+
+    const uid = await getUserId(token)
+    const queue = await getQueueData(token)
+
+    dispatch(updateQueuePosition(uid, queue))
   }
 }
 
