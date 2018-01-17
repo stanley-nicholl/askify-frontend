@@ -4,7 +4,8 @@ import { Footer, ArchiveList, QueueListHeader } from './commonComponents'
 import Navigation from './commonComponents/Navigation'
 
 const QuestionArchive = (props) => {
-  if(!props.user.id) {
+  if(!localStorage.getItem('askifyToken')) {
+    console.log('no user')
       return <Redirect to="/" />
   }
   return (
