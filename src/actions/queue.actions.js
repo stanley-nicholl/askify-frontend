@@ -7,9 +7,10 @@ import {
 
 import { updateQueuePosition } from './user.actions'
 
-export function fetchQueue(token) {
+export function fetchQueue() {
   return async (dispatch) => {
-    const res = await fetch(`https://askify-api.herokuapp.com/api/queue`, {
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIwLCJyb2wiOmZhbHNlLCJleHAiOjE1MTc2OTA4NjN9.mncwI2hY9JkdsM3AI10bbWdlzUp4dQ6ycRRnc4cXRdI'
+    const res = await fetch(`${process.env.REACT_APP_DASHDASH_API_URL}/api/queue`, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }
@@ -23,9 +24,10 @@ export function fetchQueue(token) {
   }
 }
 
-export function postQuestion(payload, token) {
+export function postQuestion(payload) {
   return async (dispatch) => {
-    const res = await fetch(`https://askify-api.herokuapp.com/api/questions/`, {
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIwLCJyb2wiOmZhbHNlLCJleHAiOjE1MTc2OTA4NjN9.mncwI2hY9JkdsM3AI10bbWdlzUp4dQ6ycRRnc4cXRdI'
+    const res = await fetch(`${process.env.REACT_APP_DASHDASH_API_URL}/api/questions/`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -48,9 +50,10 @@ export function postQuestion(payload, token) {
   }
 }
 
-export function postAnswer(qid, fname, cohort, answer, token) {
+export function postAnswer(qid, fname, cohort, answer) {
   return async (dispatch) => {
-    const res = await fetch(`https://askify-api.herokuapp.com/api/questions/${qid}/answers`, {
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIwLCJyb2wiOmZhbHNlLCJleHAiOjE1MTc2OTA4NjN9.mncwI2hY9JkdsM3AI10bbWdlzUp4dQ6ycRRnc4cXRdI'
+    const res = await fetch(`${process.env.REACT_APP_DASHDASH_API_URL}/api/questions/${qid}/answers`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -70,9 +73,10 @@ export function postAnswer(qid, fname, cohort, answer, token) {
   }
 }
 
-export function updateQuestion(id, question, token) {
+export function updateQuestion(id, question) {
   return async (dispatch) => {
-    const res = await fetch(`https://askify-api.herokuapp.com/api/questions/${id}`, {
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIwLCJyb2wiOmZhbHNlLCJleHAiOjE1MTc2OTA4NjN9.mncwI2hY9JkdsM3AI10bbWdlzUp4dQ6ycRRnc4cXRdI'
+    const res = await fetch(`${process.env.REACT_APP_DASHDASH_API_URL}/api/questions/${id}`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -89,11 +93,12 @@ export function updateQuestion(id, question, token) {
   }
 }
 
-async function getUserId(token) {
+async function getUserId() {
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIwLCJyb2wiOmZhbHNlLCJleHAiOjE1MTc2OTA4NjN9.mncwI2hY9JkdsM3AI10bbWdlzUp4dQ6ycRRnc4cXRdI'
   const header = {
     'Authorization': `Bearer ${token}`,
   }
-  const res = await fetch(`https://askify-api.herokuapp.com/api/user`, {
+  const res = await fetch(`${process.env.REACT_APP_DASHDASH_API_URL}/api/user`, {
     headers: header
   })
   const user = await res.json()

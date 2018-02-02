@@ -7,16 +7,24 @@ import {
 } from "./index";
 
 
-export function fetchUser(token) {
+export function fetchUser() {
   return async (dispatch) => {
-
+    // const token = localStorage.getItem('askifyToken')
+    const token = localStorage.getItem('askifyToken')
+    console.log(token);
     const header = {
       'Authorization': `Bearer ${token}`,
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     }
-    const res = await fetch(`https://askify-api.herokuapp.com/api/user`, {
-      headers: header
+    const res = await fetch(`${process.env.REACT_APP_DASHDASH_API_URL}/api/user`, {
+      headers: header,
+      method: 'GET'
     })
+    console.log('test2');
+
     const json = await res.json()
+    console.log('test3');
 
     dispatch({
       type: FETCH_USER_SUCCESS,
@@ -27,7 +35,7 @@ export function fetchUser(token) {
 
 export function signIn(payload) {
   return async (dispatch) => {
-    const res = await fetch(`https://askify-api.herokuapp.com/auth/login`, {
+    const res = await fetch(`${process.env.REACT_APP_DASHDASH_API_URL}/auth/login`, {
       method: 'POST',
       body: JSON.stringify(payload)
     })
@@ -45,7 +53,7 @@ export function signIn(payload) {
 
 export function signUp(payload) {
   return async (dispatch) => {
-    const newUser = await fetch(`https://askify-api.herokuapp.com/auth/register`, {
+    const newUser = await fetch(`${process.env.REACT_APP_DASHDASH_API_URL}/auth/register`, {
       method: 'POST',
       body: JSON.stringify(payload)
     })

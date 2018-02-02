@@ -15,6 +15,7 @@
     "redux-thunk": "^2.2.0"
   },
   "scripts": {
+    "deploy": "npm run build && surge -p ./build -d askify.surge.sh",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

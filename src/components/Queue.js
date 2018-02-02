@@ -4,11 +4,13 @@ import Navigation from './commonComponents/Navigation'
 import Hero from './commonComponents/Hero'
 import { Redirect } from 'react-router-dom'
 
-
 const Queue = (props) => {
-    if(!props.user.id) {
-        return <Redirect to="/" />
-    }
+    // if(!props.user.id) {
+    //     return <Redirect to="/" />
+    // }
+    console.log(props.user);
+    console.log(props.queue);
+
     return (
         <div>
           <div className='top-section'>
