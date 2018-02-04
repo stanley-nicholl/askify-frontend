@@ -41,7 +41,7 @@ class Askify extends Component {
     console.log('test0');
     const token = await window.localStorage.getItem('askifyToken')
     if(token) {
-      // const user = await this.props.fetchUser(token)
+      const user = await this.props.fetchUser(token)
       console.log('test1');
       const queue = await this.props.fetchQueue(token)
       const archive = await this.props.fetchArchive(token)
@@ -55,19 +55,21 @@ class Askify extends Component {
       <Router>
         <div className="App">
           <Route exact path='/' component={ (props) => <SignIn {...props} user={this.props.user} /> } />
-          <Route exact path='/signup' component={ (props) => <SignUp {...props} user={this.props.user} /> } />
-          <Route exact path='/queue'
-            component={ (props) => <Queue {...props}
-              user={this.props.user}
-              queue={this.props.queue}
-              logout={this.props.logUserOut}
-            /> } />
-          <Route exact path='/archive'
-            component={ (props) => <QuestionArchive {...props}
-              user={this.props.user}
-              archive={this.props.archive}
-              logout={this.props.logUserOut}
-            /> } />
+          <Route path='/signup' component={ (props) => <SignUp {...props} user={this.props.user} /> } />
+          <Route path='/queue' component={Queue}
+            // component={ (props) => <Queue {...props}
+            //   user={this.props.user}
+            //   queue={this.props.queue}
+            //   logout={this.props.logUserOut}
+            // /> }
+          />
+          <Route path='/archive' component={QuestionArchive}
+            // component={ (props) => <QuestionArchive {...props}
+            //   user={this.props.user}
+            //   archive={this.props.archive}
+            //   logout={this.props.logUserOut}
+            // /> }
+          />
           </div>
         </Router>
       </div>

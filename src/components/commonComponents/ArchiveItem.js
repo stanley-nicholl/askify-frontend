@@ -30,9 +30,9 @@ class ArchiveItem extends Component{
           <p className="element topic mt-3" id="${id}-question">{this.props.question}</p>
         </div>
         <div className="col-2 d-flex flex-column align-items-center justify-content-center">
-          <button type="button" id="${id}-answered" className='btn waves-effect btn-sm item-button answered-btn' onClick={this.toggleCollapse}>Show Answer(s)</button>
+          <button type="button" id="${id}-answered" className='btn waves-effect btn-sm item-button answered-btn' onClick={this.toggleCollapse}>Show Answer</button>
         </div>
-        <div className='d-flex py-3'>
+        <div className='d-flex py-3 flex-column'>
           <Collapse isOpened={this.state.collapsed}>
             <div className='d-flex row justify-content-between answer-section'>
               {this.props.answers.map((answer, index)=>{

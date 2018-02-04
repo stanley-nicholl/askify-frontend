@@ -67,6 +67,8 @@ class QuestionItem extends Component {
     const token = window.localStorage.getItem('askifyToken')
     await this.props.postAnswer(this.props.id, this.props.fname, this.props.cohort, this.state.answer, token)
     this.props.fetchQueue(token)
+    this.setState({ collapsed: false, answer: '' })
+
   }
 
   buttonId = (role) => {
@@ -148,7 +150,7 @@ class QuestionItem extends Component {
         <div className='d-flex py-3'>
           <Collapse isOpened={this.state.collapsed}>
             <div className='d-flex row justify-content-between answer-section'>
-              <input type="text" placeholder='What cleared the roadblock' className="element topic answer-text col-9" id={this.buttonId('answer')} />
+              <input type="text" placeholder='What cleared the roadblock' className="element topic answer-text col-9 answer-input" id={this.buttonId('answer')} onChange={e => this.handleAnswerChange(e)} value={this.state.answer} />
               <button type="button" id={this.buttonId('answer-submit')} className='btn waves-effect btn-sm item-button mt-2 answered-btn col-2 mr-0' onChange={this.handleAnswerChange} onClick={e => this.submitQuestionAnswer(e)}>Submit</button>
             </div>
           </Collapse>

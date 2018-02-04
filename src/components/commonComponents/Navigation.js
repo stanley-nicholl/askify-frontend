@@ -7,8 +7,9 @@ const Navigation = ({ navItem, logout, user, navRoute }) => {
   return (
       <nav className="navbar py-2 navigation">
           <a className="navbar-brand " href="#">
-              <img src="styles/images/goose.jpeg" width="40" height="40" className="d-inline-block align-middle" alt="" />
+              <h1 className="d-inline-block align-middle" alt="">
                ASKIFY<small className='powered-by text-white'>powered by galvanize</small>
+             </h1>
           </a>
           <div className="right-side d-flex align-items-center">
               <p className="mr-3 mb-0 text-white" id="greeting">Hello{user.fname && `, ${user.fname}`}</p>

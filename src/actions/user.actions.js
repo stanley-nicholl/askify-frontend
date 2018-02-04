@@ -9,7 +9,6 @@ import {
 
 export function fetchUser() {
   return async (dispatch) => {
-    // const token = localStorage.getItem('askifyToken')
     const token = localStorage.getItem('askifyToken')
     console.log(token);
     const header = {

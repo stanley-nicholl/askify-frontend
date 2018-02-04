@@ -117,6 +117,7 @@ video {
   width: 100vw;
   background-color: #323332 !important;
   display: flex;
+  box-shadow: 0 0 0 0 !important;
 }
 
 .navbar-brand {

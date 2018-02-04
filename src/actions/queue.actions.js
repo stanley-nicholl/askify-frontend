@@ -9,7 +9,7 @@ import { updateQueuePosition } from './user.actions'
 
 export function fetchQueue() {
   return async (dispatch) => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIwLCJyb2wiOmZhbHNlLCJleHAiOjE1MTc2OTA4NjN9.mncwI2hY9JkdsM3AI10bbWdlzUp4dQ6ycRRnc4cXRdI'
+    const token = localStorage.getItem('askifyToken')
     const res = await fetch(`${process.env.REACT_APP_DASHDASH_API_URL}/api/queue`, {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -26,7 +26,7 @@ export function fetchQueue() {
 
 export function postQuestion(payload) {
   return async (dispatch) => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIwLCJyb2wiOmZhbHNlLCJleHAiOjE1MTc2OTA4NjN9.mncwI2hY9JkdsM3AI10bbWdlzUp4dQ6ycRRnc4cXRdI'
+    const token = localStorage.getItem('askifyToken')
     const res = await fetch(`${process.env.REACT_APP_DASHDASH_API_URL}/api/questions/`, {
       method: 'POST',
       headers: {
@@ -52,7 +52,7 @@ export function postQuestion(payload) {
 
 export function postAnswer(qid, fname, cohort, answer) {
   return async (dispatch) => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIwLCJyb2wiOmZhbHNlLCJleHAiOjE1MTc2OTA4NjN9.mncwI2hY9JkdsM3AI10bbWdlzUp4dQ6ycRRnc4cXRdI'
+    const token = localStorage.getItem('askifyToken')
     const res = await fetch(`${process.env.REACT_APP_DASHDASH_API_URL}/api/questions/${qid}/answers`, {
       method: 'POST',
       headers: {
@@ -75,7 +75,7 @@ export function postAnswer(qid, fname, cohort, answer) {
 
 export function updateQuestion(id, question) {
   return async (dispatch) => {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIwLCJyb2wiOmZhbHNlLCJleHAiOjE1MTc2OTA4NjN9.mncwI2hY9JkdsM3AI10bbWdlzUp4dQ6ycRRnc4cXRdI'
+    const token = localStorage.getItem('askifyToken')
     const res = await fetch(`${process.env.REACT_APP_DASHDASH_API_URL}/api/questions/${id}`, {
       method: 'PUT',
       headers: {
@@ -94,7 +94,7 @@ export function updateQuestion(id, question) {
 }
 
 async function getUserId() {
-  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIwLCJyb2wiOmZhbHNlLCJleHAiOjE1MTc2OTA4NjN9.mncwI2hY9JkdsM3AI10bbWdlzUp4dQ6ycRRnc4cXRdI'
+  const token = localStorage.getItem('askifyToken')
   const header = {
     'Authorization': `Bearer ${token}`,
   }
