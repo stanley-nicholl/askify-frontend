@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import Navigation from './commonComponents/Navigation'
 import Hero from './commonComponents/Hero'
-import { Redirect } from 'react-router-dom'
 
 import {
   fetchUser,
@@ -17,10 +16,6 @@ import { fetchQueue } from '../actions/queue.actions'
 import { fetchArchive } from '../actions/archive.actions'
 
 const Queue = (props) => {
-    // if(!props.user.id) {
-    //     return <Redirect to="/" />
-    // }
-
     return (
         <div>
           <div className='top-section'>

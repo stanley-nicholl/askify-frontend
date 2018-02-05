@@ -124,6 +124,11 @@ video {
   color: #f6872a;
   font-weight: bold;
   font-size: 3rem;
+  text-decoration: none;
+}
+
+.navbar-brand:hover {
+  color: #f6872a;
 }
 
 .powered-by {
@@ -133,6 +138,7 @@ video {
 .nav-item {
   text-decoration: underline;
   font-size: .8rem;
+  cursor: pointer;
 }
 
 .spot {
@@ -207,6 +213,16 @@ video {
   width: 100%;
   margin-left: 0;
   margin-right: 0;
+}
+
+.answer-row {
+  width: 100%;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.answer {
+  font-style: italic;
 }
 
 .ReactCollapse--collapse {

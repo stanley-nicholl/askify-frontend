@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Footer, ArchiveList, QueueListHeader } from './commonComponents'
@@ -16,10 +15,6 @@ import { fetchQueue } from '../actions/queue.actions'
 import { fetchArchive } from '../actions/archive.actions'
 
 const QuestionArchive = (props) => {
-  if(!localStorage.getItem('askifyToken')) {
-    console.log('no user')
-      return <Redirect to="/" />
-  }
   return (
       <div>
         <Navigation

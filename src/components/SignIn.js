@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -15,10 +15,6 @@ const SignIn = ({ setUserDataToState, history, ...props }) => {
     }
 
     props.signIn(payload)
-  }
-
-  if(props.user.id) {
-    return <Redirect to="/queue" />
   }
 
   return (

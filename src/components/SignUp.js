@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
@@ -16,10 +16,6 @@ const SignUp = ({ ...props }) => {
       cohort: e.target.cohort.value
     }
     props.signUp(payload)
-  }
-
-  if(props.user.id) {
-    return <Redirect to="/queue" />
   }
 
   window.$(document).ready(function() {
@@ -77,15 +73,12 @@ const SignUp = ({ ...props }) => {
                           <label htmlFor="Form-pass1">Your password</label>
                       </div>
                       <div className="md-form mb-0 custom-signup-input mt-2">
-                          {/* <input type="text" id="Form-cohort" name='cohort' className="form-control" required /> */}
                           <select class="mdb-select">
                             <option value="" disabled selected>Choose your option</option>
                             <option value="g67">g67</option>
                             <option value="g74">g74</option>
                             <option value="g84">g84</option>
                         </select>
-
-                          {/* <label htmlFor="Form-cohort">Your cohort</label> */}
                       </div>
                     </div>
 

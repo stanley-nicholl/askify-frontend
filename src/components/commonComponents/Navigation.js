@@ -1,12 +1,16 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-const Navigation = ({ navItem, logout, user, navRoute }) => {
+import {
+  logUserOut
+} from '../../actions/user.actions'
+
+const Navigation = ({ navItem, logout, user, navRoute, logUserOut }) => {
   return (
       <nav className="navbar py-2 navigation">
-          <a className="navbar-brand " href="#">
+          <a className="navbar-brand" href="https://askify.surge.sh">
               <h1 className="d-inline-block align-middle" alt="">
                ASKIFY<small className='powered-by text-white'>powered by galvanize</small>
              </h1>
@@ -16,8 +20,10 @@ const Navigation = ({ navItem, logout, user, navRoute }) => {
               <div id="queueSpot" className="spot text-center mr-3 d-flex align-items-center justify-content-center">
                   <p className=' text-white font-weight-bold my-0'>{user.order}</p>
               </div>
-              <a className="archived mb-0 mr-4 text-white nav-item" href={navRoute}>{navItem}</a>
-              <span className="archived mb-0 mr-4 text-white nav-item log-out" onClick={ logout }>Log out</span>
+              <Link to={navRoute} className='nav-item mb-0 mr-4 text-white'>
+                {navItem}
+              </Link>
+              <p className="mb-0 mr-4 text-white nav-item log-out" onClick={e => logUserOut()}>Log out</p>
           </div>
       </nav>
   )
@@ -29,4 +35,8 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps)(Navigation)
+function mapDispatchToProps (dispatch) {
+  return bindActionCreators({ logUserOut }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation)

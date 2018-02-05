@@ -20,7 +20,6 @@ export function fetchUser() {
       headers: header,
       method: 'GET'
     })
-    console.log('test2');
 
     const json = await res.json()
     console.log('test3');
