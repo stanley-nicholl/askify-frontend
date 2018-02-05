@@ -1,6 +1,6 @@
 # Test Flight  - Admin Tool
 
-[Imgur](https://i.imgur.com/YsPAIS5.png)
+![imgur](https://i.imgur.com/YsPAIS5.png)
 
 > Askify is a question queue platform targeted at the classroom. Students can "add themselves to the queue" to receive help by describing their challenge/ question/ issue. Teachers and other students can see what others are struggling with and provide assistance.
 
