@@ -1,6 +1,7 @@
 # Askify
 
 ![imgur](https://i.imgur.com/YsPAIS5.png)
+[Co-Developed By Kat Reinhart](https://github.com/katreinhart)
 
 > Askify is a question queue platform targeted at the classroom. Students can "add themselves to the queue" to receive help by describing their challenge/ question/ issue. Teachers and other students can see what others are struggling with and provide assistance.
 
@@ -12,12 +13,13 @@
 * Teachers can load balance based on queue length (potentially ask for help )
 
 
+
 ## Installation
 
 1. Clone this repository
 2. Run npm install to enable packages
 3. Create .env files to target backend web server - https://askify-api.herokuapp.com
-4. Visit backend repo to view api documentation
+4. Visit backend repo to view api documentation - https://github.com/katreinhart/askify-api-v2
 
 ## Next Steps
 
